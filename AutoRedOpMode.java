@@ -40,7 +40,7 @@ public class AutoRedOpMode extends LinearOpMode {
         left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        robotTimer = new TimedMotor();
+        TimedMotor robotTimer = new TimedMotor();
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
