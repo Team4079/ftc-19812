@@ -30,29 +30,32 @@ public class AutoRedOpMode extends LinearOpMode {
         carouselRight = hardwareMap.get(DcMotor.class, "carouselRight");
         carouselLeft = hardwareMap.get(DcMotor.class, "carouselLeft");
         // USE THE FOLLOWING LINES TO CHANGE THE CAROUSEL SPIN FOR THE ENTIRE FILE
-        // carouselRight.setDirection(DcMotor.Direction.REVERSE);
-        // carouselLeft.setDirection(DcMotor.Direction.REVERSE);
+        carouselRight.setDirection(DcMotor.Direction.REVERSE);
+        carouselLeft.setDirection(DcMotor.Direction.REVERSE);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        // left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        // right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        TimedMotor robotTimer = new TimedMotor();
+        // TimedMotor robotTimer = new TimedMotor();
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            /*
+            
             // time based ----------------
-
             // push forward and turn carousel
+            left.setPower(0.5);
+            right.setPower(0.5);
+            robotsleep(400);
+            
             left.setPower(0.2);
             right.setPower(0.2);
-            carouselRight.setPower(1);
-            carouselLeft.setPower(1);
-            robotsleep(2000);
+            carouselRight.setPower(0.5);
+            carouselLeft.setPower(0.5);
+            robotsleep(3000);
             
             // pause
             left.setPower(0);
@@ -60,33 +63,33 @@ public class AutoRedOpMode extends LinearOpMode {
             carouselRight.setPower(0);
             carouselLeft.setPower(0);
             robotsleep(1000);
-
             // turn
             left.setPower(1);
             right.setPower(-1);
-            robotsleep(700);
+            robotsleep(450);
             
             // pause
             left.setPower(0);
             right.setPower(0);
             robotsleep(1000);
-
             // move forward
-            left.setPower(1);
-            right.setPower(1);
-            robotsleep(1000);
-
+            left.setPower(0.7);
+            right.setPower(0.7);
+            robotsleep(470);
             // stop
             left.setPower(0);
             right.setPower(0);
             robotsleep(100000);
-            */
+            /*
 
             // encoder based ----------------
 
-            // setup
-            left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            // reset
+            left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            carouselRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            carouselLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            
             // carouselRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             // carouselLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
@@ -100,7 +103,8 @@ public class AutoRedOpMode extends LinearOpMode {
             while(robotTimer.running()==1){
                 left.setTargetPosition(500);
                 right.setTargetPosition(-500);
-
+                left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 carouselRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 carouselLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 // carouselRight.setTargetPosition(10000);
@@ -121,6 +125,8 @@ public class AutoRedOpMode extends LinearOpMode {
             while(robotTimer.running()==1){
                 left.setTargetPosition(1500);
                 right.setTargetPosition(-1500);
+                left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
 
             // reset 
@@ -136,6 +142,8 @@ public class AutoRedOpMode extends LinearOpMode {
             while(robotTimer.running()==1){
                 left.setTargetPosition(3000);
                 right.setTargetPosition(-3000);
+                left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
 
             // reset 
@@ -150,6 +158,7 @@ public class AutoRedOpMode extends LinearOpMode {
             carouselRight.setPower(0);
             carouselLeft.setPower(0);
             robotsleep(100000);
+            */
         }
     }
     public void robotsleep(long timeout){

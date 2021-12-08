@@ -28,8 +28,8 @@ public class TeleopBlueOpMode extends LinearOpMode {
     right = hardwareMap.get(DcMotor.class, "right");
     right.setDirection(DcMotor.Direction.REVERSE);
 
-    left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    // left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    // right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
     carouselLeft = hardwareMap.get(DcMotor.class, "carouselLeft");
     carouselRight = hardwareMap.get(DcMotor.class, "carouselRight");
@@ -42,6 +42,8 @@ public class TeleopBlueOpMode extends LinearOpMode {
     boolean gamepada = false;
     telemetry.addData("Status", "Initialized");
     telemetry.update();
+    double carspeed = 0.5;
+    double robotspeed = 0.8;
     // Wait for the game to start (driver presses PLAY)
     waitForStart();
 
@@ -53,15 +55,15 @@ public class TeleopBlueOpMode extends LinearOpMode {
     
         // DriveTrain program
         tgtPowerLeft = this.gamepad1.left_stick_y;
-        left.setPower(tgtPowerLeft);
-        tgtPowerRight = -this.gamepad1.right_stick_y;
-        right.setPower(tgtPowerRight);
+        left.setPower(tgtPowerLeft*robotspeed);
+        tgtPowerRight = this.gamepad1.right_stick_y;
+        right.setPower(tgtPowerRight*robotspeed);
     
         // Carousel program
     
         if(this.gamepad1.y == true) {
-            carouselRight.setPower(1);
-            carouselLeft.setPower(1);
+            carouselRight.setPower(carspeed);
+            carouselLeft.setPower(carspeed);
             robotsleep(100);
             carouselRight.setPower(0);
             carouselLeft.setPower(0);
@@ -71,14 +73,14 @@ public class TeleopBlueOpMode extends LinearOpMode {
             if(carouselRightTimer.isRunning()){
               carouselRightTimer.cancelMotor();
             } else {
-              carouselRightTimer.runMotor(2000, 10, 1500);
-              carouselRight.setPower(1);
+              carouselRightTimer.runMotor(2000, 10, 1500, carspeed);
+              carouselRight.setPower(carspeed);
             }
             if(carouselLeftTimer.isRunning()){
               carouselLeftTimer.cancelMotor();
             } else {
-              carouselLeftTimer.runMotor(2000, 10, 1500);
-              carouselLeft.setPower(1);
+              carouselLeftTimer.runMotor(2000, 10, 1500, carspeed);
+              carouselLeft.setPower(carspeed);
             }
         }
         gamepada = this.gamepad1.a;
@@ -112,7 +114,5 @@ public class TeleopBlueOpMode extends LinearOpMode {
  
  
  
-
-
 
 

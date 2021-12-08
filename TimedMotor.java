@@ -18,16 +18,18 @@ public class TimedMotor{
   long repeatDelay = 0;
   long time = 0;
   boolean running = false;
+  double speed = 1;
    public TimedMotor(){
       this.start = -1;
   };
-  public void runMotor(long time, int repeat, int repeatDelay){
+  public void runMotor(long time, int repeat, int repeatDelay, double speed){
       this.start = System.currentTimeMillis();
       this.end = System.currentTimeMillis()+time;
       this.time = time;
       this.repeat = repeat;
       this.repeatDelay = repeatDelay;
       this.running = true;
+      this.speed = speed;
   };
    public void runMotor(long time){
       this.start = System.currentTimeMillis();
@@ -35,7 +37,7 @@ public class TimedMotor{
       this.time = time;
       this.running = true;
   }
-   public int running(){
+   public double running(){
       if(System.currentTimeMillis() > end){
           if(counter<repeat){
               counter++;
@@ -46,7 +48,7 @@ public class TimedMotor{
           }
           return 0;
       } else if(System.currentTimeMillis() > start) {
-          return 1;
+          return speed;
       } else {
           return 0;
       }
@@ -71,7 +73,5 @@ public class TimedMotor{
  
  
  
-
-
 
 
