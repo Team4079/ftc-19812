@@ -1,4 +1,3 @@
-//I am testing to see if the github works
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import java.util.concurrent.TimeUnit;
@@ -17,6 +16,9 @@ public class TeleopOpMode extends LinearOpMode {
   // private Gyroscope imu;
   private DcMotor left;
   private DcMotor right;
+  private DcMotor intake;
+  private DcMotor top;
+  private DcMotor bottom;
   private DcMotor carouselLeft;
   private DcMotor carouselRight;
   private TimedMotor carouselLeftTimer;
@@ -32,6 +34,9 @@ public class TeleopOpMode extends LinearOpMode {
     // left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     // right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+    intake = hardwareMap.get(DcMotor.class, "intake");
+    top = hardwareMap.get(DcMotor.class, "top");
+    bottom = hardwareMap.get(DcMotor.class, "bottom");
     carouselLeft = hardwareMap.get(DcMotor.class, "carouselLeft");
     carouselRight = hardwareMap.get(DcMotor.class, "carouselRight");
     carouselLeftTimer = new TimedMotor();
@@ -45,6 +50,7 @@ public class TeleopOpMode extends LinearOpMode {
     telemetry.update();
     double carspeed = 0.5;
     double robotspeed = 0.8;
+    double intakespeed = 1;
     // Wait for the game to start (driver presses PLAY)
     waitForStart();
 
@@ -59,32 +65,46 @@ public class TeleopOpMode extends LinearOpMode {
         left.setPower(tgtPowerLeft*robotspeed);
         tgtPowerRight = this.gamepad1.right_stick_y;
         right.setPower(tgtPowerRight*robotspeed);
-    
-        // Carousel program
-    
+
+        // intake program
+        if(this.gamepad1.right_bumper == true) {
+            intake.setPower(intakespeed);
+            top.setPower(-intakespeed);
+            bottom.setPower(intakespeed);
+            robotsleep(50);
+            intake.setPower(0);
+            top.setPower(0);
+            bottom.setPower(0);
+        }
+
+        // outtake program
         if(this.gamepad1.y == true) {
+            intake.setPower(-intakespeed);
+            top.setPower(intakespeed);
+            bottom.setPower(-intakespeed);
+            robotsleep(50);
+            intake.setPower(0);
+            top.setPower(0);
+            bottom.setPower(0);
+        }
+
+        // Carousel program Blue
+        if(this.gamepad1.x == true) {
             carouselRight.setPower(carspeed);
             carouselLeft.setPower(carspeed);
             robotsleep(100);
             carouselRight.setPower(0);
             carouselLeft.setPower(0);
         }
-        //endgame
-        if(this.gamepad1.a == true && gamepada == false) {
-            if(carouselRightTimer.isRunning()){
-              carouselRightTimer.cancelMotor();
-            } else {
-              carouselRightTimer.runMotor(2000, 10, 1500, carspeed);
-              carouselRight.setPower(carspeed);
-            }
-            if(carouselLeftTimer.isRunning()){
-              carouselLeftTimer.cancelMotor();
-            } else {
-              carouselLeftTimer.runMotor(2000, 10, 1500, carspeed);
-              carouselLeft.setPower(carspeed);
-            }
+        // Carousel program Red 
+        if(this.gamepad1.b == true) {
+            carouselRight.setPower(-carspeed);
+            carouselLeft.setPower(-carspeed);
+            robotsleep(100);
+            carouselRight.setPower(0);
+            carouselLeft.setPower(0);
         }
-        gamepada = this.gamepad1.a;
+       
     
         // check motors
         carouselRight.setPower(carouselRightTimer.running());

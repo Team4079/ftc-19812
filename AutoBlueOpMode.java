@@ -73,8 +73,8 @@ public class AutoBlueOpMode extends LinearOpMode {
             right.setPower(0);
             robotsleep(1000);
             // move forward
-            left.setPower(0.7);
-            right.setPower(0.7);
+            left.setPower(0.8);
+            right.setPower(0.8);
             robotsleep(450);
             // stop
             left.setPower(0);

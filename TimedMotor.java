@@ -70,8 +70,4 @@ public class TimedMotor{
       running = false;
   }
 }
- 
- 
- 
-
 
