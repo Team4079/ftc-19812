@@ -1,5 +1,4 @@
-//testing this is new stuff
-
+//I am testing to see if the github works
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import java.util.concurrent.TimeUnit;
@@ -13,7 +12,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 //import java.util.concurrent.TimeUnit
 import org.firstinspires.ftc.teamcode.TimedMotor;
 @TeleOp
-public class TeleopBlueOpMode extends LinearOpMode {
+public class TeleopOpMode extends LinearOpMode {
   private Blinker expansion_Hub_2;
   // private Gyroscope imu;
   private DcMotor left;
