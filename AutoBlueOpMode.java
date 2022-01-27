@@ -47,6 +47,7 @@ public class AutoBlueOpMode extends LinearOpMode {
             
             // time based ----------------
             // push forward and turn carousel
+            /*
             left.setPower(0.5);
             right.setPower(0.5);
             robotsleep(400);
@@ -80,7 +81,7 @@ public class AutoBlueOpMode extends LinearOpMode {
             left.setPower(0);
             right.setPower(0);
             robotsleep(100000);
-            /*
+            */
 
             // encoder based ----------------
 
@@ -158,7 +159,7 @@ public class AutoBlueOpMode extends LinearOpMode {
             carouselRight.setPower(0);
             carouselLeft.setPower(0);
             robotsleep(100000);
-            */
+            
         }
     }
     public void robotsleep(long timeout){
