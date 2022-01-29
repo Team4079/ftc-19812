@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 // import java.util.concurrent.TimeUnit
 @Autonomous
-public class AutoBlueMiddleOpMode extends LinearOpMode {
+public class AutoRedMiddleOpMode extends LinearOpMode {
     private Blinker expansion_Hub_2;
     private Gyroscope imu;
     private DcMotor left;
@@ -33,8 +33,8 @@ public class AutoBlueMiddleOpMode extends LinearOpMode {
         carouselRight = hardwareMap.get(DcMotor.class, "carouselRight");
         carouselLeft = hardwareMap.get(DcMotor.class, "carouselLeft");
         // USE THE FOLLOWING LINES TO CHANGE THE CAROUSEL SPIN FOR THE ENTIRE FILE
-        // carouselRight.setDirection(DcMotor.Direction.REVERSE);
-        // carouselLeft.setDirection(DcMotor.Direction.REVERSE);
+        carouselRight.setDirection(DcMotor.Direction.REVERSE);
+        carouselLeft.setDirection(DcMotor.Direction.REVERSE);
         
         top = hardwareMap.get(DcMotor.class, "top");
         bottom = hardwareMap.get(DcMotor.class, "bottom");
