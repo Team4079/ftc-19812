@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 // import java.util.concurrent.TimeUnit
 @Autonomous
-public class AutoRedOpMode extends LinearOpMode {
+public class AutoRedLeftOpMode extends LinearOpMode {
     private Blinker expansion_Hub_2;
     private Gyroscope imu;
     private DcMotor left;
