@@ -12,13 +12,16 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 // import java.util.concurrent.TimeUnit
 @Autonomous
-public class AutoBlueOpMode extends LinearOpMode {
+public class AutoBlueMiddleOpMode extends LinearOpMode {
     private Blinker expansion_Hub_2;
     private Gyroscope imu;
     private DcMotor left;
     private DcMotor right;
     private DcMotor carouselRight;
     private DcMotor carouselLeft;
+    private DcMotor top;
+    private DcMotor bottom;
+    private DcMotor intake;
     @Override
     public void runOpMode() {
         expansion_Hub_2 = hardwareMap.get(Blinker.class, "Expansion Hub 2");
@@ -30,9 +33,13 @@ public class AutoBlueOpMode extends LinearOpMode {
         carouselRight = hardwareMap.get(DcMotor.class, "carouselRight");
         carouselLeft = hardwareMap.get(DcMotor.class, "carouselLeft");
         // USE THE FOLLOWING LINES TO CHANGE THE CAROUSEL SPIN FOR THE ENTIRE FILE
-        // carouselRight.setDirection(DcMotor.Direction.REVERSE);
-        // carouselLeft.setDirection(DcMotor.Direction.REVERSE);
-
+        carouselRight.setDirection(DcMotor.Direction.REVERSE);
+        carouselLeft.setDirection(DcMotor.Direction.REVERSE);
+        
+        top = hardwareMap.get(DcMotor.class, "top");
+        bottom = hardwareMap.get(DcMotor.class, "bottom");
+        intake = hardwareMap.get(DcMotor.class, "intake");
+        
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         // Wait for the game to start (driver presses PLAY)
@@ -46,40 +53,77 @@ public class AutoBlueOpMode extends LinearOpMode {
         while (opModeIsActive()) {
             
             // time based ----------------
-            // push forward and turn carousel
-            left.setPower(0.5);
-            right.setPower(0.5);
-            robotsleep(400);
+            // move back
+            left.setPower(-0.7);
+            right.setPower(-1);
+            robotsleep(1000);
+            robotpause(1000);
+
+            // dump
+            top.setPower(-1);
+            bottom.setPower(1);
+            intake.setPower(1);
+            robotsleep(3000);
+            robotpause(1000);
+
+            // move forward
+            left.setPower(0.9);
+            right.setPower(1);
+            robotsleep(700);
+            robotpause(1000);
             
-            left.setPower(0.2);
-            right.setPower(0.2);
+            // turn
+            left.setPower(0.9);
+            right.setPower(-1);
+            robotsleep(1100);
+            robotpause(1000);
+
+            // move forward
+            left.setPower(0.9);
+            right.setPower(1);
+            robotsleep(1000);
+            robotpause(1000);
+
+            // spin carousel
+            left.setPower(0.25);
+            right.setPower(0.25);
             carouselRight.setPower(0.5);
             carouselLeft.setPower(0.5);
             robotsleep(3000);
+            robotpause(1000);
+
+            // move back
+            left.setPower(-0.9);
+            right.setPower(-1);
+            robotsleep(600);
+            robotpause(1000);
             
-            // pause
-            left.setPower(0);
-            right.setPower(0);
-            carouselRight.setPower(0);
-            carouselLeft.setPower(0);
-            robotsleep(1000);
             // turn
-            left.setPower(-1);
-            right.setPower(1);
-            robotsleep(470);
-            
-            // pause
-            left.setPower(0);
-            right.setPower(0);
-            robotsleep(1000);
+            left.setPower(0.9);
+            right.setPower(-1);
+            robotsleep(1100);
+            robotpause(1000);
+
             // move forward
-            left.setPower(0.8);
-            right.setPower(0.8);
-            robotsleep(450);
+            left.setPower(0.9);
+            right.setPower(1);
+            robotsleep(500);
+            robotpause(1000);
+
+            // turn
+            left.setPower(-0.9);
+            right.setPower(1);
+            robotsleep(1500);
+            robotpause(1000);
+
+            // move forward
+            left.setPower(0.45);
+            right.setPower(.5);
+            robotsleep(2000);
+            robotpause(1000);
+
             // stop
-            left.setPower(0);
-            right.setPower(0);
-            robotsleep(100000);
+            robotpause(100000);
             /*
 
             // encoder based ----------------
@@ -169,5 +213,15 @@ public class AutoBlueOpMode extends LinearOpMode {
                 System.out.print(e);
             }
         }
+    }
+    public void robotpause(long time){
+        left.setPower(0);
+        right.setPower(0);
+        carouselRight.setPower(0);
+        carouselLeft.setPower(0);
+        top.setPower(0);
+        bottom.setPower(0);
+        intake.setPower(0);
+        robotsleep(time);
     }
 }

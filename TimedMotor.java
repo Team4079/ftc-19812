@@ -19,7 +19,7 @@ public class TimedMotor{
   long time = 0;
   boolean running = false;
   double speed = 1;
-   public TimedMotor(){
+  public TimedMotor(){
       this.start = -1;
   };
   public void runMotor(long time, int repeat, int repeatDelay, double speed){
@@ -47,7 +47,7 @@ public class TimedMotor{
               this.reset();
           }
           return 0;
-      } else if(System.currentTimeMillis() > start) {
+      } else if(System.currentTimeMillis() >= start) {
           return speed;
       } else {
           return 0;

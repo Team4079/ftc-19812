@@ -48,8 +48,8 @@ public class TeleopOpMode extends LinearOpMode {
     boolean gamepada = false;
     telemetry.addData("Status", "Initialized");
     telemetry.update();
-    double carspeed = 0.5;
-    double robotspeed = 0.8;
+    double carspeed = 0.5;  
+    double robotspeed = 1;
     double intakespeed = 1;
     // Wait for the game to start (driver presses PLAY)
     waitForStart();
@@ -62,7 +62,7 @@ public class TeleopOpMode extends LinearOpMode {
     
         // DriveTrain program
         tgtPowerLeft = this.gamepad1.left_stick_y;
-        left.setPower(tgtPowerLeft*robotspeed);
+        left.setPower(tgtPowerLeft*robotspeed*0.85);
         tgtPowerRight = this.gamepad1.right_stick_y;
         right.setPower(tgtPowerRight*robotspeed);
 
