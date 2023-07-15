@@ -101,4 +101,8 @@ public class MechanumAutonomous extends LinearOpMode {
             telemetry.update();
         }
     }
+    public void input(double leftFront, double rightFront, double leftBack, double rightBack)
+    {
+        leftFrontDrive.setPower(leftFront);
+    }
 }
