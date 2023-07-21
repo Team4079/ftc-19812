@@ -25,15 +25,15 @@ public class MechanumAutonomous extends LinearOpMode {
         
         // Initialize the hardware variables. Note that the strings used here must correspond
         // to the names assigned during the robot configuration step on the DS or RC devices.
-        leftFrontDrive  = hardwareMap.get(DcMotor.class, "left_front_drive");
-        leftBackDrive  = hardwareMap.get(DcMotor.class, "left_back_drive");
-        rightFrontDrive = hardwareMap.get(DcMotor.class, "right_front_drive");
-        rightBackDrive = hardwareMap.get(DcMotor.class, "right_back_drive");
+        leftFrontDrive  = hardwareMap.get(DcMotor.class, "fLeft");
+        leftBackDrive  = hardwareMap.get(DcMotor.class, "bLeft");
+        rightFrontDrive = hardwareMap.get(DcMotor.class, "fRight");
+        rightBackDrive = hardwareMap.get(DcMotor.class, "bRight");
 
-        leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
-        leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightBackDrive.setDirection(DcMotor.Direction.REVERSE);
+        leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
+        leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
+        rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
+        rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
         // Wait for the game to start (driver presses PLAY)
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -89,21 +89,8 @@ public class MechanumAutonomous extends LinearOpMode {
 
             // Send calculated power to wheels
             //forward
-            input(0.4, 0.4, 0.4, 0.4);
-            //diagonalTopRight
-            input(0.4, 0, 0.4, 0);
-            //right
-            input(0.4, -0.4, -0.4, 0.4);
-            //diagonalBottomRight
-            input(0, -0.4, -0.4, 0);
-            //Back
-            input(-0.4, -0.4, -0.4, -0.4);
-            //diagonalBottomLeft
-            input(-0.4, 0, 0, -0.4);
-            //left
-            input(-0.4, 0.4, 0.4, -0.4);
-            //diagonalTopLeft
-            input(0, 0.4, 0.4, 0);
+            
+            topLeft();
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
@@ -117,5 +104,42 @@ public class MechanumAutonomous extends LinearOpMode {
         rightFrontDrive.setPower(rightFront);
         leftBackDrive.setPower(leftBack);
         rightBackDrive.setPower(rightBack);
+        sleep(500);
+    }
+    public void drive()
+    {
+        input(0.4, 0.4, 0.4, 0.4);
+    }
+    public void topRight()
+    {
+        input(0.4, 0, 0, 0.4);
+    }
+    public void right()
+    {
+        input(0.4, -0.4, -0.4, 0.4);
+    }
+    public void bottomRight()
+    {
+        input(0, -0.4, -0.4, 0);
+    }
+    public void back()
+    {
+        input(-0.4, -0.4, -0.4, -0.4);
+    }
+    public void bottomLeft()
+    {
+        input(-0.4, 0, 0, -0.4);
+    }
+    public void left()
+    {
+        input(-0.4, 0.4, 0.4, -0.4);   
+    }
+    public void topLeft()
+    {
+        input(0, 0.4, 0.4, 0);
+    }
+    public void stop(double time)
+    {
+        input(0, 0, 0, 0);
     }
 }
