@@ -50,11 +50,14 @@ public class MechanumAutonomous extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()&&count==0) {
+            /*
             driveEncoders(800);
             leftEncoders(600);
             driveEncoders(800);
             rightEncoders(600);
             driveEncoders(800);
+            */
+            leftTopDiagonal(300);
             // Show the elapsed game time and wheel power.
             count++;
         }
@@ -89,6 +92,22 @@ public class MechanumAutonomous extends LinearOpMode {
     {
         encoders(-target, target, target, -target);
     }
+    public void leftTopDiagonal(int target)
+    {
+        encoders(0, target, target, 0);
+    }
+    public void rightTopDiagonal(int target)
+    {
+        encoders(target, 0, 0, target);
+    }
+    public void leftBottomDiagonal(int target)
+    {
+        encoders(-target, 0, 0, -target);
+    }
+    public void rightBottomDiagonal(int target)
+    {
+        encoders(0, -target, -target, 0);
+    }
     public void encoders(int leftFront, int rightFront, int leftBack, int rightBack)
     {
         leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -111,7 +130,7 @@ public class MechanumAutonomous extends LinearOpMode {
         rightFrontDrive.setVelocity(1500);
         leftBackDrive.setVelocity(1500);
         rightBackDrive.setVelocity(1500);
-        while (opModeIsActive()&&leftFrontDrive.isBusy()&&rightFrontDrive.isBusy()&&leftBackDrive.isBusy()&&rightBackDrive.isBusy())
+        while (opModeIsActive()&&leftFrontDrive.isBusy()||rightFrontDrive.isBusy()||leftBackDrive.isBusy()||rightBackDrive.isBusy())
         {
         }
         leftFrontDrive.setPower(0);
