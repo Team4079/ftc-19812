@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  *
  * @author Brandon Gong
  */
-@TeleOp(name="Mecanum Drive Example", group="Iterative Opmode")
-public class MecanumTele extends OpMode {
+@TeleOp(name="Mecanum Drive Example2", group="Iterative Opmode")
+public class MecanumTele2 extends OpMode {
 
     /*
      * The mecanum drivetrain involves four separate motors that spin in
@@ -38,9 +38,10 @@ public class MecanumTele extends OpMode {
     public void loop() {
         // Mecanum drive is controlled with three axes: drive (front-and-back),
         // strafe (left-and-right), and twist (rotating the whole chassis).
-        double drive  = gamepad1.left_stick_y/1.01;
-        double strafe = gamepad1.left_stick_x/1.01;
-        double twist  = gamepad1.right_stick_x/1.01;
+        double drive  = gamepad1.left_stick_y*0.4;
+        double strafe = gamepad1.left_stick_x*0.4;
+        double twist  = gamepad1.right_stick_x*0.4;
+
 
         /*
          * If we had a gyro and wanted to do field-oriented control, here
@@ -101,7 +102,7 @@ public class MecanumTele extends OpMode {
         {
             if(reduce)
             {
-                speeds[i]/=3;
+                speeds[i]/=2;
             }
         }
         telemetry.addData("reduce", reduce);
