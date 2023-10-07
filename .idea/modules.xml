@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/FTC_Team1/FTC_Team1.iml" filepath="$PROJECT_DIR$/FTC_Team1/FTC_Team1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FTC_Team2/FTC_Team2.iml" filepath="$PROJECT_DIR$/FTC_Team2/FTC_Team2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ftc-19812.iml" filepath="$PROJECT_DIR$/ftc-19812.iml" />
+    </modules>
+  </component>
+</project>
