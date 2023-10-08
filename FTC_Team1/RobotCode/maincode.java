@@ -10,8 +10,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  *
  * @author Brandon Gong
  */
-@TeleOp(name="Mecanum Drive Example2", group="Iterative Opmode")
-public class MecanumTele2 extends OpMode {
+@TeleOp(name="MainTeleOp", group="Iterative Opmode")
+public class maincode extends OpMode {
 
     /*
      * The mecanum drivetrain involves four separate motors that spin in
@@ -24,7 +24,9 @@ public class MecanumTele2 extends OpMode {
     private DcMotor front_right;
     private DcMotor back_left;
     private DcMotor back_right;
+    private DcMotor slide1Move;
     private double power=1;
+    private double slide1MovePower;
     private boolean reduce;
     @Override
     public void init() {
@@ -34,6 +36,7 @@ public class MecanumTele2 extends OpMode {
         front_right = hardwareMap.get(DcMotor.class, "fRight");
         back_left = hardwareMap.get(DcMotor.class, "bLeft");
         back_right = hardwareMap.get(DcMotor.class, "bRight");
+        slide1Move = hardwareMap.get(DcMotor.class, "slide1move");
         back_right.setDirection(DcMotor.Direction.REVERSE);
     }
     @Override
@@ -44,6 +47,16 @@ public class MecanumTele2 extends OpMode {
         double strafe = gamepad1.left_stick_x*0.8;
         double twist  = gamepad1.right_stick_x*0.9;
 
+        double slide1MoveDown = gamepad1.left_trigger;
+        boolean slide1MoveUp = gamepad1.left_bumper;
+        
+        if (slide1MoveDown > 0) {
+            slide1MovePower = 0.7;
+        } else if (slide1MoveUp == true) {
+            slide1MovePower = -0.7;
+        } else {
+            slide1MovePower = 0;
+        }
 
         /*
          * If we had a gyro and wanted to do field-oriented control, here
@@ -107,16 +120,20 @@ public class MecanumTele2 extends OpMode {
                 speeds[i]/=3;
             }
         }
+        
         telemetry.addData("reduce", reduce);
         telemetry.addData("front_left", speeds[0]);
         telemetry.addData("front_right", speeds[1]);
         telemetry.addData("back_left", speeds[2]);
         telemetry.addData("back_right", speeds[3]);
+        telemetry.addData("slide1Motor", slide1MovePower);
         telemetry.update();
         // apply the calculated values to the motors.
         front_left.setPower(speeds[0]);
         front_right.setPower(speeds[1]);
         back_left.setPower(speeds[2]);
         back_right.setPower(speeds[3]);
+        slide1Move.setPower(slide1MovePower);
+        slide1Move.setPower(-0.7);
     }
 }
