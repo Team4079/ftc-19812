@@ -38,6 +38,7 @@ public class maincode extends OpMode {
         back_right = hardwareMap.get(DcMotor.class, "bRight");
         slide1Move = hardwareMap.get(DcMotor.class, "slide1move");
         back_right.setDirection(DcMotor.Direction.REVERSE);
+        slide1Move.setPower(0.5);
     }
     @Override
     public void loop() {
@@ -50,13 +51,6 @@ public class maincode extends OpMode {
         double slide1MoveDown = gamepad1.left_trigger;
         boolean slide1MoveUp = gamepad1.left_bumper;
         
-        if (slide1MoveDown > 0) {
-            slide1MovePower = 0.7;
-        } else if (slide1MoveUp == true) {
-            slide1MovePower = -0.7;
-        } else {
-            slide1MovePower = 0;
-        }
 
         /*
          * If we had a gyro and wanted to do field-oriented control, here
@@ -134,6 +128,5 @@ public class maincode extends OpMode {
         back_left.setPower(speeds[2]);
         back_right.setPower(speeds[3]);
         slide1Move.setPower(slide1MovePower);
-        slide1Move.setPower(-0.7);
     }
 }
