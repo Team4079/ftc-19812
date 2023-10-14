@@ -39,6 +39,7 @@ public class maincode extends OpMode {
         back_left = hardwareMap.get(DcMotor.class, "bLeft");
         back_right = hardwareMap.get(DcMotor.class, "bRight");
         slide1Move = hardwareMap.get(DcMotor.class, "slide1move");
+        clawServo = hardwareMap.get(CRServo.class, "leftServo");
         back_right.setDirection(DcMotor.Direction.REVERSE);
         slide1Move.setPower(0.5);
     }
