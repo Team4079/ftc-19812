@@ -26,9 +26,11 @@ public class maincode extends OpMode {
     private DcMotor front_right;
     private DcMotor back_left;
     private DcMotor back_right;
-    private DcMotor slide1Move;
+    private DcMotor LSlideVert;
+    private DcMotor RSlideVert
     private double power=1;
-    private double slide1MovePower;
+    private double LSlideVertPower;
+    private double RSlideVertPower;
     private boolean reduce;
     @Override
     public void init() {
@@ -38,10 +40,13 @@ public class maincode extends OpMode {
         front_right = hardwareMap.get(DcMotor.class, "fRight");
         back_left = hardwareMap.get(DcMotor.class, "bLeft");
         back_right = hardwareMap.get(DcMotor.class, "bRight");
-        slide1Move = hardwareMap.get(DcMotor.class, "slide1move");
+        LSlideVert = hardwareMap.get(DcMotor.class, "LSlideVert");
+        RSlideVert = hardwareMap.get(DcMotor.class, "RSlideVert");
+        
         clawServo = hardwareMap.get(CRServo.class, "leftServo");
         back_right.setDirection(DcMotor.Direction.REVERSE);
-        slide1Move.setPower(0.5);
+        LSlideVert.setPower(0.5);
+        RSlideVert.setpower(0.5);
     }
     @Override
     public void loop() {
@@ -51,9 +56,10 @@ public class maincode extends OpMode {
         double strafe = gamepad1.left_stick_x*0.8;
         double twist  = gamepad1.right_stick_x*0.9;
 
-        double slide1MoveDown = gamepad1.left_trigger;
-        boolean slide1MoveUp = gamepad1.left_bumper;
-        
+        double LSlideDown = gamepad1.left_trigger;
+        boolean LSlideUp = gamepad1.left_bumper;
+        double RSlideDown = gamepad1.right_trigger;
+        boolean RSlideUp = gamepad1.right_bumper;
 
         /*
          * If we had a gyro and wanted to do field-oriented control, here
@@ -123,13 +129,15 @@ public class maincode extends OpMode {
         telemetry.addData("front_right", speeds[1]);
         telemetry.addData("back_left", speeds[2]);
         telemetry.addData("back_right", speeds[3]);
-        telemetry.addData("slide1Motor", slide1MovePower);
+        telemetry.addData("LSlideMotor", LSlideVertPower);
+        telemetry.addData("RSlideMotor", RSlideVertPower);
         telemetry.update();
         // apply the calculated values to the motors.
         front_left.setPower(speeds[0]);
         front_right.setPower(speeds[1]);
         back_left.setPower(speeds[2]);
         back_right.setPower(speeds[3]);
-        slide1Move.setPower(slide1MovePower);
+        LSlideVert.setPower(LSlideVertPower);
+        RSlideVert.setPower(RSlideVertPower);
     }
 }
