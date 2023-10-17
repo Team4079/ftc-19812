@@ -34,6 +34,7 @@ public class maincode extends OpMode {
     private double LSlideVertPower;
     private double RSlideVertPower;
     private boolean reduce;
+    private double LServoPower;
     @Override
     public void init() {
         reduce=false;
@@ -69,6 +70,14 @@ public class maincode extends OpMode {
             RSlideVertPower = -0.5;
         } else if (RSlideDown > 0) {
             RSlideVertPower = 0.5;
+        }
+
+        boolean LServo1 = gamepad1.X;
+        boolean LServo2 = gamepad1.Y;
+        if (LServo1) {
+            LServoPower = 0.2;
+        } else if (LServo2) {
+            LServoPower = -0.2;
         }
         
         /*
@@ -149,5 +158,6 @@ public class maincode extends OpMode {
         back_right.setPower(speeds[3]);
         LSlideVert.setPower(LSlideVertPower);
         RSlideVert.setPower(RSlideVertPower);
+        leftServo.setPower(LServoPower);
     }
 }
