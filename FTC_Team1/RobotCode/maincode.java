@@ -58,9 +58,19 @@ public class maincode extends OpMode {
 
         double LSlideDown = gamepad1.left_trigger;
         boolean LSlideUp = gamepad1.left_bumper;
+        if (LSlideUp) {
+            LSlideVertPower = -0.5;
+        } else if (LSlideDown > 0) {
+            LSlideVertPower = 0.5;
+        }
         double RSlideDown = gamepad1.right_trigger;
         boolean RSlideUp = gamepad1.right_bumper;
-
+        if (RSlideUp) {
+            RSlideVertPower = -0.5;
+        } else if (RSlideDown > 0) {
+            RSlideVertPower = 0.5;
+        }
+        
         /*
          * If we had a gyro and wanted to do field-oriented control, here
          * is where we would implement it.
