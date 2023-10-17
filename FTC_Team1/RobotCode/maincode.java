@@ -27,7 +27,9 @@ public class maincode extends OpMode {
     private DcMotor back_left;
     private DcMotor back_right;
     private DcMotor LSlideVert;
-    private DcMotor RSlideVert
+    private DcMotor RSlideVert;
+    private CRServo leftServo;
+    private CRServo rightServo;
     private double power=1;
     private double LSlideVertPower;
     private double RSlideVertPower;
@@ -42,11 +44,9 @@ public class maincode extends OpMode {
         back_right = hardwareMap.get(DcMotor.class, "bRight");
         LSlideVert = hardwareMap.get(DcMotor.class, "LSlideVert");
         RSlideVert = hardwareMap.get(DcMotor.class, "RSlideVert");
-        
-        clawServo = hardwareMap.get(CRServo.class, "leftServo");
+        leftServo = hardwareMap.get(CRServo.class, "leftServo");
+        rightServo = hardwareMap.get(CRServo.class, "rightServo");
         back_right.setDirection(DcMotor.Direction.REVERSE);
-        LSlideVert.setPower(0.5);
-        RSlideVert.setpower(0.5);
     }
     @Override
     public void loop() {
