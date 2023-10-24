@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
  *
  * @author Brandon Gong
  */
-@TeleOp(name="MainTeleOp", group="Iterative Opmode")
+@TeleOp(name="RishiCode", group="Iterative Opmode")
 public class maincode extends OpMode {
 
     /*
@@ -72,8 +72,8 @@ public class maincode extends OpMode {
             RSlideVertPower = 0.5;
         }
 
-        boolean LServo1 = gamepad1.X;
-        boolean LServo2 = gamepad1.Y;
+        boolean LServo1 = gamepad1.button_0;
+        boolean LServo2 = gamepad1.button_3;
         if (LServo1) {
             LServoPower = 0.2;
         } else if (LServo2) {
