@@ -81,6 +81,8 @@ public class maincode extends OpMode {
             armState = 2;
         } else if(gamepad1.left_bumper){
             armState = 1;
+        } else if(gamepad1.right_trigger > 0.5){
+            armState = 3;
         } else {
             armState = 0;
             LSlideVertPower = 0.2;
@@ -99,6 +101,8 @@ public class maincode extends OpMode {
             slidePower = -0.2;
         } else if(slideState == 2){
             slidePower = 0.2;
+        } else if(slideState == 3){
+            slidePower = 0.0;
         } else {
             slidePower = 0.0;
         }
