@@ -77,18 +77,22 @@ public class maincode extends OpMode {
         double strafe = gamepad1.left_stick_x*0.8;
         double twist  = gamepad1.right_stick_x*0.9;
         
-        if (gamepad1.left_bumper) {
-            LSlideVertPower = 0.7;
-            RSlideVertPower = -0.7;
-        } else if (gamepad1.left_trigger > 0.5) {
-            LSlideVertPower = -0.25;
-            RSlideVertPower = 0.25;
-        } else if (gamepad1.right_bumper){
+        if (gamepad1.right_bumper){
+            armState = 2;
+        } else if(gamepad1.left_bumper){
+            armState = 1;
+        } else {
+            armState = 0;
             LSlideVertPower = 0.2;
             RSlideVertPower = -0.2;
-        } else {
-            LSlideVertPower = 0;
-            RSlideVertPower = 0;
+        }
+        
+        if(armState == 1){
+            LSlideVertPower = 0.7;
+            RSlideVertPower = -0.7;
+        } else if(armState == 2){
+            LSlideVertPower = 0.015;
+            RSlideVertPower = -0.015;
         }
         
         if (slideState == 1) {
@@ -201,6 +205,7 @@ public class maincode extends OpMode {
         telemetry.addData("RSlideMotor", RSlideVertPower);
         telemetry.addData("LServo", servoPower);
         telemetry.addData("RServo", servoPower);
+        telemetry.addData("armState", armState);
         telemetry.addData("ServoState", servoState);
         telemetry.addData("SlideState", slideState);
         telemetry.update();
