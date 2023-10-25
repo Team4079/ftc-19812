@@ -1,6 +1,7 @@
 package RobotCode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -10,7 +11,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
  * This is an example minimal implementation of the mecanum drivetrain
  * for demonstration purposes.  Not tested and not guaranteed to be bug free.
  *
- * @author Brandon Gong
+ * @author Michele Obama & Barrack Obama
  */
 @TeleOp(name="RishiCode", group="Iterative Opmode")
 public class maincode extends OpMode {
@@ -28,25 +29,44 @@ public class maincode extends OpMode {
     private DcMotor back_right;
     private DcMotor LSlideVert;
     private DcMotor RSlideVert;
+    private DcMotor slideMotor;
     private CRServo leftServo;
     private CRServo rightServo;
     private double power=1;
     private double LSlideVertPower;
     private double RSlideVertPower;
+    private double slidePower;
     private boolean reduce;
-    private double LServoPower;
+    private double slideLastPressed;
+    private int slideState;
+    private double servoPower;
+    public ElapsedTime timesofar = new ElapsedTime();
+    private double servoLastPressed;
+    private boolean servoState;
+    private int armState;
+    private double armLastPressed;
+    
     @Override
     public void init() {
-        reduce=false;
+        timesofar.reset();
+        servoLastPressed = timesofar.time();
+        slideLastPressed = timesofar.time();
+        armLastPressed = timesofar.time();
+        reduce = false;
+        servoState = false;
+        slideState = 0;
+        armState = 0;
         // Name strings must match up with the config on the Robot Controller
         front_left = hardwareMap.get(DcMotor.class, "fLeft");
         front_right = hardwareMap.get(DcMotor.class, "fRight");
         back_left = hardwareMap.get(DcMotor.class, "bLeft");
         back_right = hardwareMap.get(DcMotor.class, "bRight");
+
         LSlideVert = hardwareMap.get(DcMotor.class, "LSlideVert");
         RSlideVert = hardwareMap.get(DcMotor.class, "RSlideVert");
         leftServo = hardwareMap.get(CRServo.class, "leftServo");
         rightServo = hardwareMap.get(CRServo.class, "rightServo");
+        slideMotor = hardwareMap.get(DcMotor.class, "slideMotor");
         back_right.setDirection(DcMotor.Direction.REVERSE);
     }
     @Override
@@ -56,34 +76,63 @@ public class maincode extends OpMode {
         double drive  = gamepad1.left_stick_y*0.8;
         double strafe = gamepad1.left_stick_x*0.8;
         double twist  = gamepad1.right_stick_x*0.9;
+        
+        if (gamepad1.left_bumper) {
+            LSlideVertPower = 0.7;
+            RSlideVertPower = -0.7;
+        } else if (gamepad1.left_trigger > 0.5) {
+            LSlideVertPower = -0.25;
+            RSlideVertPower = 0.25;
+        } else if (gamepad1.right_bumper){
+            LSlideVertPower = 0.2;
+            RSlideVertPower = -0.2;
+        } else {
+            LSlideVertPower = 0;
+            RSlideVertPower = 0;
+        }
+        
+        if (slideState == 1) {
+            slidePower = -0.2;
+        } else if(slideState == 2){
+            slidePower = 0.2;
+        } else {
+            slidePower = 0.0;
+        }
+        
+        if (gamepad1.b) {
+            if(timesofar.time() - slideLastPressed > 0.2){
+                slideLastPressed = timesofar.time();
+                if(slideState < 3){
+                    slideState++;
+                } else {
+                    slideState = 1;
+                }
+            }
+        }
+        
+        if(gamepad1.y) {
+            slidePower = 1.0;
+        }
 
-        double LSlideDown = gamepad1.left_trigger;
-        boolean LSlideUp = gamepad1.left_bumper;
-        if (LSlideUp) {
-            LSlideVertPower = -0.5;
-        } else if (LSlideDown > 0) {
-            LSlideVertPower = 0.5;
+        if (gamepad1.a) {
+            if(timesofar.time() - servoLastPressed > 2.0){
+                servoLastPressed = timesofar.time();
+                servoState = !servoState;
+            }
         }
-        double RSlideDown = gamepad1.right_trigger;
-        boolean RSlideUp = gamepad1.right_bumper;
-        if (RSlideUp) {
-            RSlideVertPower = -0.5;
-        } else if (RSlideDown > 0) {
-            RSlideVertPower = 0.5;
+        
+        if(servoState){
+            servoPower = 0.3;
+        } else {
+            servoPower = 0.0;
         }
-
-        boolean LServo1 = gamepad1.button_0;
-        boolean LServo2 = gamepad1.button_3;
-        if (LServo1) {
-            LServoPower = 0.2;
-        } else if (LServo2) {
-            LServoPower = -0.2;
-        }
+        
+        // ^ Wait couldn't we use one bool and where's the other servo rishi
         
         /*
          * If we had a gyro and wanted to do field-oriented control, here
          * is where we would implement it.
-         *
+         * 
          * The idea is fairly simple; we have a robot-oriented Cartesian (x,y)
          * coordinate (strafe, drive), and we just rotate it by the gyro
          * reading minus the offset that we read in the init() method.
@@ -119,11 +168,11 @@ public class maincode extends OpMode {
         for(int i = 0; i < speeds.length; i++) {
             if ( max < Math.abs(speeds[i]) ) max = Math.abs(speeds[i]);
         }
-        if(this.gamepad1.a)
+        if(this.gamepad1.y)
         {
             reduce=true;
         }
-        if(this.gamepad1.b&&((speeds[0]*2)<=1)&&((speeds[1]*2)<=1)&&((speeds[2]*2)<=1)&&((speeds[3]*2)<=1))
+        if(this.gamepad1.x&&((speeds[0]*2)<=1)&&((speeds[1]*2)<=1)&&((speeds[2]*2)<=1)&&((speeds[3]*2)<=1))
         {
             reduce=false;
         }
@@ -150,6 +199,10 @@ public class maincode extends OpMode {
         telemetry.addData("back_right", speeds[3]);
         telemetry.addData("LSlideMotor", LSlideVertPower);
         telemetry.addData("RSlideMotor", RSlideVertPower);
+        telemetry.addData("LServo", servoPower);
+        telemetry.addData("RServo", servoPower);
+        telemetry.addData("ServoState", servoState);
+        telemetry.addData("SlideState", slideState);
         telemetry.update();
         // apply the calculated values to the motors.
         front_left.setPower(speeds[0]);
@@ -158,6 +211,8 @@ public class maincode extends OpMode {
         back_right.setPower(speeds[3]);
         LSlideVert.setPower(LSlideVertPower);
         RSlideVert.setPower(RSlideVertPower);
-        leftServo.setPower(LServoPower);
+        leftServo.setPower(servoPower);
+        rightServo.setPower(servoPower);
+        slideMotor.setPower(slidePower);
     }
 }
