@@ -81,12 +81,21 @@ public class maincode extends OpMode {
             armState = 2;
         } else if(gamepad1.left_bumper){
             armState = 1;
-        } else if(gamepad1.right_trigger > 0.5){
-            armState = 3;
-        } else {
+        } else if(armState != 3){
             armState = 0;
             LSlideVertPower = 0.2;
             RSlideVertPower = -0.2;
+        }
+        
+        if(gamepad1.right_trigger > 0.5){
+            if(timesofar.time() - armLastPressed > 0.5){
+                armLastPressed = timesofar.time();
+                if(armState == 3){
+                    armState = 0;
+                } else {
+                    armState = 3;
+                }
+            }
         }
         
         if(armState == 1){
@@ -95,6 +104,9 @@ public class maincode extends OpMode {
         } else if(armState == 2){
             LSlideVertPower = 0.015;
             RSlideVertPower = -0.015;
+        } else if(armState == 3){
+            LSlideVertPower = 0.0;
+            RSlideVertPower = 0.0;
         }
         
         if (slideState == 1) {
