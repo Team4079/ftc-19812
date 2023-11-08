@@ -1,3 +1,5 @@
+// DO NOT ADD THE FIELD ORIENTED CONTROLS YET. It's still being revised, so use the RishiCodeBACKUP file to make changes until I can get the IMU sorted out. Thanks.
+// November 8 - 11:29
 package RobotCode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
