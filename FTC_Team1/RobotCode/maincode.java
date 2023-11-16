@@ -34,6 +34,7 @@ public class maincode extends OpMode {
     private DcMotor slideMotor;
     private CRServo leftServo;
     private CRServo rightServo;
+    private CRServo planeServo;
     private double power=1;
     private double LSlideVertPower;
     private double RSlideVertPower;
@@ -42,6 +43,7 @@ public class maincode extends OpMode {
     private double slideLastPressed;
     private int slideState;
     private double servoPower;
+    private double planePower;
     public ElapsedTime timesofar = new ElapsedTime();
     private double servoLastPressed;
     private boolean servoState;
@@ -68,6 +70,7 @@ public class maincode extends OpMode {
         RSlideVert = hardwareMap.get(DcMotor.class, "RSlideVert");
         leftServo = hardwareMap.get(CRServo.class, "leftServo");
         rightServo = hardwareMap.get(CRServo.class, "rightServo");
+        planeServo = hardwareMap.get(CRServo.class, "planeServo");
         slideMotor = hardwareMap.get(DcMotor.class, "slideMotor");
         back_right.setDirection(DcMotor.Direction.REVERSE);
     }
@@ -142,7 +145,13 @@ public class maincode extends OpMode {
                 servoState = !servoState;
             }
         }
-        
+
+        if (gamepad1.left_trigger > 0.9) {
+            planePower = 1.0;
+        } else {
+            planePower = 0.0;
+        }
+            
         if(servoState){
             servoPower = 0.3;
         } else {
@@ -226,6 +235,7 @@ public class maincode extends OpMode {
         telemetry.addData("armState", armState);
         telemetry.addData("ServoState", servoState);
         telemetry.addData("SlideState", slideState);
+        telemetry.addData("PlanePower", planePower);
         telemetry.update();
         // apply the calculated values to the motors.
         front_left.setPower(speeds[0]);
@@ -236,6 +246,8 @@ public class maincode extends OpMode {
         RSlideVert.setPower(RSlideVertPower);
         leftServo.setPower(servoPower);
         rightServo.setPower(servoPower);
+        planeServo.setPower(planePower);
         slideMotor.setPower(slidePower);
+        
     }
 }
