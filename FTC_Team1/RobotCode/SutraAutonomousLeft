@@ -77,7 +77,12 @@ public class AutonomousSutra extends LinearOpMode {
             turnLeft(90);
             //scan object - left
             setTheArmPowersToZeroSoTheyFallAndAreStoppedByTheHardstop();
-            
+            turnRight(180);
+
+            rightEncoders(640);
+
+            driveEncoders(2325);
+
             
             // Show the elapsed game time and wheel power.
             count++;
