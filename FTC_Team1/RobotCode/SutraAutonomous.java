@@ -8,11 +8,16 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import org.firstinspires.ftc.vision.VisionPortal;
+import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
 @Autonomous(name="SutraAuto", group="Linear Opmode")
 
 
-public class AutonomousSutra extends LinearOpMode {
+public class AutonomousSutraRight extends LinearOpMode {
     private final double wheelCircumference = 75*3.14;
     private final double gearReduction = 3.61*5.23;
     private final double counts = 28.0;
@@ -65,7 +70,7 @@ public class AutonomousSutra extends LinearOpMode {
             armHold();
             //set pos
             turnRight(90);
-            leftEncoders(640);
+            leftEncoders(610);
             //scan object - right
             
             
@@ -77,7 +82,10 @@ public class AutonomousSutra extends LinearOpMode {
             turnLeft(90);
             //scan object - left
             setTheArmPowersToZeroSoTheyFallAndAreStoppedByTheHardstop();
+            turnLeft(180);
             
+            rightEncoders(600);
+            driveEncoders(1168);
             
             // Show the elapsed game time and wheel power.
             count++;
