@@ -1,5 +1,3 @@
-// DO NOT ADD THE FIELD ORIENTED CONTROLS YET. It's still being revised, so use the RishiCodeBACKUP file to make changes until I can get the IMU sorted out. Thanks.
-// November 8 - 11:29
 package RobotCode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -15,8 +13,8 @@ import com.qualcomm.robotcore.hardware.CRServo;
  *
  * @author Michele Obama & Barrack Obama
  */
-@TeleOp(name="RishiCode", group="Iterative Opmode")
-public class maincode extends OpMode {
+@TeleOp(name="RishiCodeBACKUP", group="Iterative Opmode")
+public class RishiCodeBACKUP extends OpMode {
 
     /*
      * The mecanum drivetrain involves four separate motors that spin in
@@ -49,7 +47,7 @@ public class maincode extends OpMode {
     private boolean servoState;
     private int armState;
     private double armLastPressed;
-    
+
     @Override
     public void init() {
         timesofar.reset();
@@ -70,8 +68,8 @@ public class maincode extends OpMode {
         RSlideVert = hardwareMap.get(DcMotor.class, "RSlideVert");
         leftServo = hardwareMap.get(CRServo.class, "leftServo");
         rightServo = hardwareMap.get(CRServo.class, "rightServo");
-        planeServo = hardwareMap.get(CRServo.class, "planeServo");
         slideMotor = hardwareMap.get(DcMotor.class, "slideMotor");
+        planeServo = hardwareMap.get(CRServo.class, "planeServo");
         back_right.setDirection(DcMotor.Direction.REVERSE);
     }
     @Override
@@ -81,17 +79,17 @@ public class maincode extends OpMode {
         double drive  = gamepad1.left_stick_y*0.8;
         double strafe = gamepad1.left_stick_x*0.8;
         double twist  = gamepad1.right_stick_x*0.9;
-        
+
         if (gamepad1.right_bumper){
             armState = 2;
         } else if(gamepad1.left_bumper){
             armState = 1;
         } else if(armState != 3){
             armState = 0;
-            LSlideVertPower = 0.2;
-            RSlideVertPower = -0.2;
+            LSlideVertPower = 0.1;
+            RSlideVertPower = -0.1;
         }
-        
+
         if(gamepad1.right_trigger > 0.5){
             if(timesofar.time() - armLastPressed > 0.5){
                 armLastPressed = timesofar.time();
@@ -102,28 +100,29 @@ public class maincode extends OpMode {
                 }
             }
         }
-        
+
+
         if(armState == 1){
-            LSlideVertPower = 0.7;
-            RSlideVertPower = -0.7;
+            LSlideVertPower = 0.6;
+            RSlideVertPower = -0.6;
         } else if(armState == 2){
-            LSlideVertPower = 0.015;
-            RSlideVertPower = -0.015;
+            LSlideVertPower = -0.05;
+            RSlideVertPower = 0.05;
         } else if(armState == 3){
             LSlideVertPower = 0.0;
             RSlideVertPower = 0.0;
         }
-        
+
         if (slideState == 1) {
-            slidePower = -0.2;
+            slidePower = -0.7;
         } else if(slideState == 2){
-            slidePower = 0.2;
+            slidePower = 0.7;
         } else if(slideState == 3){
             slidePower = 0.0;
         } else {
             slidePower = 0.0;
         }
-        
+
         if (gamepad1.b) {
             if(timesofar.time() - slideLastPressed > 0.2){
                 slideLastPressed = timesofar.time();
@@ -131,12 +130,7 @@ public class maincode extends OpMode {
                     slideState++;
                 } else {
                     slideState = 1;
-                }
-            }
-        }
-        
-        if(gamepad1.y) {
-            slidePower = 1.0;
+                }        }
         }
 
         if (gamepad1.a) {
@@ -151,19 +145,19 @@ public class maincode extends OpMode {
         } else {
             planePower = 0.0;
         }
-            
+
         if(servoState){
-            servoPower = 0.3;
+            servoPower = 0.5;
         } else {
             servoPower = 0.0;
         }
-        
+
         // ^ Wait couldn't we use one bool and where's the other servo rishi
-        
+
         /*
          * If we had a gyro and wanted to do field-oriented control, here
          * is where we would implement it.
-         * 
+         *
          * The idea is fairly simple; we have a robot-oriented Cartesian (x,y)
          * coordinate (strafe, drive), and we just rotate it by the gyro
          * reading minus the offset that we read in the init() method.
@@ -210,7 +204,7 @@ public class maincode extends OpMode {
         // If and only if the maximum is outside of the range we want it to be,
         // normalize all the other speeds based on the given speed value.
         if (max > 1) {
-            for (int i = 0; i < speeds.length; i++) 
+            for (int i = 0; i < speeds.length; i++)
             {
                 speeds[i] /= max;
             }
@@ -222,7 +216,7 @@ public class maincode extends OpMode {
                 speeds[i]/=3;
             }
         }
-        
+
         telemetry.addData("reduce", reduce);
         telemetry.addData("front_left", speeds[0]);
         telemetry.addData("front_right", speeds[1]);
@@ -246,8 +240,7 @@ public class maincode extends OpMode {
         RSlideVert.setPower(RSlideVertPower);
         leftServo.setPower(servoPower);
         rightServo.setPower(servoPower);
-        planeServo.setPower(planePower);
         slideMotor.setPower(slidePower);
-        
-    }
+        planeServo.setPower(planePower);
+}
 }
