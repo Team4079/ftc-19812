@@ -1,0 +1,221 @@
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+@TeleOp
+
+public class Test extends LinearOpMode {
+    private ElapsedTime runtime = new ElapsedTime();
+    private ElapsedTime check = new ElapsedTime();
+    private DcMotor front_left;
+    private DcMotor front_right;
+    private DcMotor back_left;
+    private DcMotor back_right;
+    private DcMotor armR = null;
+    private DcMotor armL = null;
+    private DcMotor wrist = null;
+    private CRServo clawServo;
+    private DcMotor intake = null;
+    private double armManualDeadband;
+    private final int armHomePosition=0;
+    private final int armScorePosition=100;
+    private double armPower=0.5;
+    private int count=0;
+    boolean clawOpen = false;
+    
+    public void initialize() {
+        front_left = hardwareMap.get(DcMotor.class, "fLeft");
+        front_right = hardwareMap.get(DcMotor.class, "fRight");
+        back_left = hardwareMap.get(DcMotor.class, "bLeft");
+        back_right = hardwareMap.get(DcMotor.class, "bRight");
+        back_left.setDirection(DcMotor.Direction.REVERSE);
+        front_right.setDirection(DcMotor.Direction.REVERSE);
+        clawServo = hardwareMap.get(CRServo.class, "pinchers");
+        intake = hardwareMap.get(DcMotor.class, "intake");
+        
+        armR = hardwareMap.get(DcMotor.class, "arm");
+        armL = hardwareMap.get(DcMotor.class, "armL");
+        wrist = hardwareMap.get(DcMotor.class, "wrist");
+        clawServo.setDirection(DcMotor.Direction.FORWARD);
+        
+        
+        
+    }
+    public void runOpMode()
+    {
+        initialize();
+        waitForStart();
+        double armPower;
+        double manualArmPower;
+        boolean manualMode=false;
+        armManualDeadband=0.03;
+        while(opModeIsActive())
+        {
+            double drive  = gamepad1.left_stick_y/1.4;
+            double strafe = gamepad1.left_stick_x/1.4;
+            double twist  = gamepad1.right_stick_x/1.3;
+            
+            double[] speeds = {
+            (drive + -strafe + -twist),
+            (drive - -strafe - -twist),
+            (drive - -strafe + -twist),
+            (drive + -strafe - -twist)
+            };
+
+            double max = Math.abs(speeds[0]);
+            for(int i = 0; i < speeds.length; i++) {
+                if ( max < Math.abs(speeds[i]) ) max = Math.abs(speeds[i]);
+            }
+            if (max > 1) {
+                for (int i = 0; i < speeds.length; i++) speeds[i] /= max;
+            }
+            front_left.setPower(speeds[0]);
+            front_right.setPower(speeds[1]);
+            back_left.setPower(speeds[2]);
+            back_right.setPower(speeds[3]);
+            
+            
+            if((gamepad1.right_trigger+gamepad1.left_trigger)>=0.1)
+            {
+                manualArmPower=(gamepad1.right_trigger - gamepad1.left_trigger)/2;
+            }
+            else
+            {
+                manualArmPower=0.0;
+                
+                armR.setPower(0.0);
+                armR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                armL.setPower(0.0);
+                armL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                manualMode=false;
+                
+            }
+            if(!manualMode)
+                {
+                    armR.setPower(0.0);
+                    armR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                    armL.setPower(0.0);
+                    armL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                    manualMode=true;
+                }
+            armR.setPower(manualArmPower);
+            armL.setPower(-manualArmPower);
+            if(gamepad1.right_bumper)
+            {
+                double wristPower=1.0;
+                wrist.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                wrist.setPower(-wristPower);
+                telemetry.addData("wrist", wristPower);
+                telemetry.update();
+            }
+            //up
+            if(gamepad1.left_bumper)
+            {
+                wrist.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                wrist.setPower(1.0);
+            }
+            wrist.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            wrist.setPower(0.0);
+            if(gamepad1.a){
+                intake.setPower(1.0);
+            }
+            if(gamepad1.b){
+                intake.setPower(-1.0);
+            }
+            intake.setPower(0.0);
+            
+            //airplane
+            double clawPower=1.0;
+            if(gamepad1.x)
+            {
+                runtime.reset();
+                while(runtime.seconds()<=0.5)
+                {
+                    clawServo.setPower(-clawPower);
+                }
+            }
+        }
+    }
+
+    // todo: write your code here
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ArmPower:
+package RobotCode;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
+
+
+
+@TeleOp(name="ArmJoint", group="Linear Opmode")
+
+public class ArmPower extends LinearOpMode {
+
+    // Declare OpMode members.
+    private ElapsedTime runtime = new ElapsedTime();
+    private DcMotor arm = null;
+
+    @Override
+    public void runOpMode() {
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+
+        // Initialize the hardware variables. Note that the strings used here as parameters
+        // to 'get' must correspond to the names assigned during the robot configuration
+        // step (using the FTC Robot Controller app on the phone).
+        arm  = hardwareMap.get(DcMotor.class, "arm");
+
+
+        // Wait for the game to start (driver presses PLAY)
+        waitForStart();
+        runtime.reset();
+
+        // run until the end of the match (driver presses STOP)
+        while (opModeIsActive()) {
+            double power = 1.0;
+            arm.setPower(-power);
+            if(gamepad1.x)
+            {
+                arm.setPower(-power);
+            }
+            if(gamepad1.a)
+            {
+                arm.setPower(power);
+            }
+            if(gamepad1.y)
+            {
+                arm.setPower(0);
+            }
+            telemetry.addData("ArmPower", power);
+            telemetry.update();
+
+            // Show the elapsed game time and wheel power.
+        }
+    }
+}
