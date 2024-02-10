@@ -1,0 +1,201 @@
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+
+@TeleOp(name="MeetZero", group="Linear OpMode")
+
+public class Meet0 extends LinearOpMode {
+
+    // Declare OpMode members for each of the 4 motors.
+    private ElapsedTime runtime = new ElapsedTime();
+    private ElapsedTime check = new ElapsedTime();
+    private DcMotor front_left;
+    private DcMotor front_right;
+    private DcMotor back_left;
+    private DcMotor back_right;
+    private DcMotor armR = null;
+    private DcMotor armL = null;
+    private DcMotor wrist = null;
+    private CRServo clawServo;
+    private double armManualDeadband;
+    private final int armHomePosition=0;
+    private final int armScorePosition=100;
+    private double armPower=0.5;
+    private int count=0;
+    boolean clawOpen = false;
+    
+    public void initialize() {
+        front_left = hardwareMap.get(DcMotor.class, "fLeft");
+        front_right = hardwareMap.get(DcMotor.class, "fRight");
+        back_left = hardwareMap.get(DcMotor.class, "bLeft");
+        back_right = hardwareMap.get(DcMotor.class, "bRight");
+        back_left.setDirection(DcMotor.Direction.REVERSE);
+        front_right.setDirection(DcMotor.Direction.REVERSE);
+        clawServo = hardwareMap.get(CRServo.class, "pinchers");
+        armR = hardwareMap.get(DcMotor.class, "arm");
+        armL = hardwareMap.get(DcMotor.class, "armL");
+        wrist = hardwareMap.get(DcMotor.class, "wrist");
+        
+    }
+    
+    public void wrist(int targetPosition)
+    {
+        if(wrist.getCurrentPosition()!=targetPosition)
+        {
+        wrist.setTargetPosition(targetPosition);
+        wrist.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        wrist.setPower(0.5);
+        while(wrist.isBusy()&&wrist.getCurrentPosition()!=targetPosition)
+            {
+                telemetry.addData("Status", "WristX " + runtime.toString());
+                telemetry.addData("ArmR Position", armR.getCurrentPosition());
+                telemetry.addData("ArmL Position", armL.getCurrentPosition());
+                telemetry.addData("Wrist Position", wrist.getCurrentPosition());
+                telemetry.update();
+            }
+        }
+        wrist.setPower(0.0);
+    }
+    @Override
+    public void runOpMode() {
+        initialize();
+        boolean servoState=false;
+        double manualArmPower;
+        boolean manualMode=false;
+        armManualDeadband=0.03;
+        wrist.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        // Initialize the hardware variables. Note that the strings used here must correspond
+        // to the names assigned during the robot configuration step on the DS or RC devices.
+
+        // Wait for the game to start (driver presses PLAY)
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+
+        waitForStart();
+        runtime.reset();
+
+        // run until the end of the match (driver presses STOP)
+        while (opModeIsActive()) {
+            double drive  = gamepad1.left_stick_y/1.4;
+            double strafe = gamepad1.left_stick_x/1.4;
+            double twist  = gamepad1.right_stick_x/1.3;
+            
+            double[] speeds = {
+            (drive + -strafe + -twist),
+            (drive - -strafe - -twist),
+            (drive - -strafe + -twist),
+            (drive + -strafe - -twist)
+            };
+
+            double max = Math.abs(speeds[0]);
+            for(int i = 0; i < speeds.length; i++) {
+                if ( max < Math.abs(speeds[i]) ) max = Math.abs(speeds[i]);
+            }
+            if (max > 1) {
+                for (int i = 0; i < speeds.length; i++) speeds[i] /= max;
+            }
+            front_left.setPower(speeds[0]);
+            front_right.setPower(speeds[1]);
+            back_left.setPower(speeds[2]);
+            back_right.setPower(speeds[3]);
+            manualArmPower=(gamepad1.right_trigger - gamepad1.left_trigger)/2;
+            //wrist
+            wrist.setPower(0.0);
+            wrist.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            //up
+            if(gamepad1.right_bumper)
+            {
+                wrist.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                wrist.setPower(-0.8);
+                if(wrist.getCurrentPosition()<-1500)
+                {
+                    wrist(-1500);
+                    wrist.setPower(0.0);
+                    wrist.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                    telemetry.addData("Status", "Wrist Braking Down" + runtime.toString());
+                    telemetry.addData("TargetPosition", 0);
+                    telemetry.addData("ArmR Position", armR.getCurrentPosition());
+                    telemetry.addData("ArmL Position", armL.getCurrentPosition());
+                    telemetry.addData("Wrist Position", wrist.getCurrentPosition());
+                    telemetry.update();
+                }
+            }
+            //up
+            if(gamepad1.left_bumper)
+            {
+                wrist.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                wrist.setPower(0.8);
+                if(wrist.getCurrentPosition()>0)
+                {
+                    wrist(0);
+                    wrist.setPower(0.0);
+                    wrist.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                    telemetry.addData("Status", "Wrist Braking Up" + runtime.toString());
+                    telemetry.addData("TargetPosition", 0);
+                    telemetry.addData("ArmR Position", armR.getCurrentPosition());
+                    telemetry.addData("ArmL Position", armL.getCurrentPosition());
+                    telemetry.addData("Wrist Position", wrist.getCurrentPosition());
+                    telemetry.update();
+                }
+            }
+            double clawPower=1.0;
+            if(gamepad1.b&&check.seconds()>2.0)
+            {
+                check.reset();
+                runtime.reset();
+                while (runtime.seconds()<=0.5)
+                {
+                    if(servoState)
+                    {
+                        clawServo.setPower(clawPower);
+                    }
+                    else
+                    {
+                        clawServo.setPower(-clawPower);
+                    }
+                }
+                if(servoState)
+                {
+                    servoState=false;
+                }
+                else
+                {
+                    servoState=true;
+                }
+                clawServo.setPower(0);
+                telemetry.addData("servoState", servoState);
+                telemetry.update();
+            }
+            clawServo.setPower(0.0);
+            //arm
+            if(Math.abs(manualArmPower)>armManualDeadband)
+            {
+                if(!manualMode)
+                {
+                    armR.setPower(0.0);
+                    armR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                    armL.setPower(0.0);
+                    armL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                    manualMode=true;
+                }
+                armR.setPower(manualArmPower);
+                armL.setPower(manualArmPower);
+            }
+
+            // Show the elapsed game time and wheel power.
+            telemetry.addData("Status", "Run Time: " + runtime.toString());
+            telemetry.addData("ArmR Position", armR.getCurrentPosition());
+            telemetry.addData("ArmL Position", armL.getCurrentPosition());
+            telemetry.addData("Wrist Position", wrist.getCurrentPosition());
+            telemetry.addData("ManualMode", manualMode);
+            telemetry.update();
+        }
+    }}
