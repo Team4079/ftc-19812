@@ -19,7 +19,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  * This is an example minimal implementation of the mecanum drivetrain
  * for demonstration purposes.  Not tested and not guaranteed to be bug free.
  *
- * @author Michelle Obama & Barrack Obama and MJ's here for some reason
+ * @author Michelle Obama & Barrack Obama and MJ's here for some reason and benny
  */
 @TeleOp(name="TeleOpMain", group="Iterative Opmode")
 public class maincode extends OpMode {
