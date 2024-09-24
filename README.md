@@ -16,4 +16,3 @@ Leads: Sehwan and Benny <br>
 
 Team 1: Nav, Aiden, Justin, Ruthvik, Sophia <br>
 Team 2: Adnan, Victor, Alex, Daniel, Benny (if needed)
-// I love monkeys said alex cui
