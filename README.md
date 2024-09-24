@@ -9,3 +9,10 @@ Justin (JustinBustinOACodin) - 33 <br>
 Ruthvik (Betra/Garuda) - 25 <br>
 Benny (grimaceshake) - 26 <br>
 Aiden (AjDjDuarte) - 17 <br>
+Victor (VickyCheese2010) - Personal <br>
+Sophia (???) - ??? <br>
+
+Leads: Sehwan and Benny <br>
+
+Team 1: Nav, Aiden, Justin, Ruthvik, Sophia <br>
+Team 2: Adnan, Victor, Alex, Daniel, Benny (if needed)
