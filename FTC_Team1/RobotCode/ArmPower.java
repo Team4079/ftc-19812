@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-//haha
+//Navkaran Gill - 9/25/2024 - 3:53 PM
 
 @TeleOp(name="ArmJoint", group="Linear Opmode")
 

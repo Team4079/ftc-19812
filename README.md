@@ -9,7 +9,7 @@ Justin (JustinBustinOACodin) - 33 <br>
 Ruthvik (Betra/Garuda) - 25 / 32 <br>
 Benny (grimaceshake) - 26 <br>
 Aiden (AjDjDuarte) - 17 <br>
-Victor (VickyCheese2010) - Personal <br>
+Victor (VickyCheese2010) - Personal / 6 <br>
 Sophia (???) - ??? <br>
 Adnan (ReallyOutOfContext) - 21 <br>
 
