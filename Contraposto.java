@@ -3,10 +3,11 @@ private DcMotor frontleft;
 private DcMotor frontright;
 private DcMotor backleft;
 private DcMotor backright;
-private boolean slow = false;
+private DcMotor armOne;
+private int armOneState;
+private ElapsedTime armOneCooldown = new.ElapsedTime();
 
 public runtime = 0;
-private slowlastPressed = 0;
 
 frontleft.hardwareMap.get(DcMotor.class, “fleft”);
 frontleftDrive.setDirection(DcMotor.Direction.Reverse);
@@ -16,7 +17,10 @@ backleft.hardwareMap.get(DcMotor.class, “bleft”);
 backleftDrive.setDirection(DcMotor.Direction, REVERSE);
 backright.hardwareMap.get(DcMotor.class, “bright”);
 backrightDrive.setDirection(DcMotor.Direction, FRONT);
+armOne.hardwareMap.get(DcMotor.class , "arm")
 
+        armOneState = 1;
+        armOneCooldown = 0;
         double drive  = gamepad1.left_stick_y*0.7;
         double strafe = gamepad1.left_stick_x*0.7;
         double twist  = gamepad1.right_stick_x*0.7;
@@ -28,25 +32,21 @@ backrightDrive.setDirection(DcMotor.Direction, FRONT);
             (drive - -strafe + -twist),
             (drive + -strafe - -twist)
         }
-            
-        if (slow == false){    
-            front_left.setPower(speeds[0]);
-            front_right.setPower(speeds[1]);
-            back_left.setPower(speeds[2]);
-            back_right.setPower(speeds[3]);
-        } else {
-            front_left.setPower(speeds[0]/2);
-            front_right.setPower(speeds[1]/2);
-            back_left.setPower(speeds[2]/2);
-            back_right.setPower(speeds[3]/2);
+        if(armOneState == 1){
+            armOne.setPower(1.0);
+        } else if(armOneState == 2){
+            armOne.setPower(-1.0;);
+        } else{
+            armOne.setPower(0.0);
         }
   
-        
-        if (gamepad.a == true && runtime - slowlastpressed >= 1){
-            
-            slow = !slow;
-            slowlastpressed = runtime;
-        
+        if(gamepad1.x && (runtime-armOneCooldown >= 0.2)){
+            if(armOneState < 3){
+                armOneState++
+                armOneCooldown = runtime;
+            } else {
+                armOneState = 1;
+                armOneCooldown = runtime;
+            }
         }
-
 
