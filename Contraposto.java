@@ -49,4 +49,21 @@ armOne.hardwareMap.get(DcMotor.class , "arm")
                 armOneCooldown = runtime;
             }
         }
+if(armTwoState == 1){
+            armTwo.setPower(1.0);
+        } else if(armTwoState == 2){
+            armTwp.setPower(-1.0;);
+        } else{
+            armOne.setPower(0.0);
+        }
+  
+        if(gamepad1.a && (runtime-armTwoCooldown >= 0.2)){
+            if(armTwoState == 1){
+                armTwoState++
+                armTwoCooldown = runtime;
+            } else {
+                armTwoState = 1;
+                armTwoCooldown = runtime;
+            }
+        }
 
