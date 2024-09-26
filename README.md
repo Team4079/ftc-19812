@@ -6,7 +6,7 @@ Nav (lmaoNebula) - "20" <br>
 Daniel (chillydogs1) - 35 <br>
 Alex (1076351) - 22 <br>
 Justin (JustinBustinOACodin) - 33 <br>
-Ruthvik (Betra/Garuda) - 25 / 32 <br>
+Ruthvik (Betra/Garuda) - 25 / 32 STOP TOUCHING MY COMPUTADORA!!! <br>
 Benny (grimaceshake) - 26 <br>
 Aiden (AjDjDuarte) - 17 <br>
 Victor (VickyCheese2010) - Personal / 6 <br>
