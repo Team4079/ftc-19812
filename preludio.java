@@ -40,3 +40,23 @@ public class MechanumAutonomous extends LinearOpMode {
         leftBackDrive.setDirection(DcMotorEx.Direction.REVERSE);
         rightFrontDrive.setDirection(DcMotorEx.Direction.REVERSE);
         rightBackDrive.setDirection(DcMotorEx.Direction.FORWARD);
+
+        waitForStart();
+        runtime.reset();
+
+         // run until the end of the match (driver presses STOP)
+        while (opModeIsActive()&&count==0) {
+            /*
+            driveEncoders(800);
+            leftEncoders(600);
+            driveEncoders(800);
+            rightEncoders(600);
+            driveEncoders(800);
+            */
+            rightEncoders(400);
+            backEncoders(500);
+            leftBottomDiagonal(200);
+            
+            // Show the elapsed game time and wheel power.
+            count++;
+        }
