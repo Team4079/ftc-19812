@@ -26,6 +26,13 @@ public class MechanumAutonomous extends LinearOpMode {
     private DcMotorEx rightFrontDrive = null;
     private DcMotorEx rightBackDrive = null;
 
+    private DcMotor armOne;
+    private DcMotor armTwo;
+    private int armOneState;
+    private double armOneCooldown = 0.0;
+    private int armTwoState;
+    private double armTwoCooldown = 0.0;
+
      @Override
     public void runOpMode() {
 
@@ -40,6 +47,9 @@ public class MechanumAutonomous extends LinearOpMode {
         leftBackDrive.setDirection(DcMotorEx.Direction.REVERSE);
         rightFrontDrive.setDirection(DcMotorEx.Direction.REVERSE);
         rightBackDrive.setDirection(DcMotorEx.Direction.FORWARD);
+
+         armOne.hardwareMap.get(DcMotor.class , "arm")
+         armTwo.hardwareMap.get(DcMotor.class , "arm")
 
         waitForStart();
         runtime.reset();
