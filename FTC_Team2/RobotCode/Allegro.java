@@ -27,6 +27,8 @@ public class MechanumAutonomous extends LinearOpMode {
     private DcMotorEx rightFrontDrive = null;
     private DcMotorEx rightBackDrive = null;
 
+    private int armPower = 0
+
     @Override
     public void runOpMode() {
         
@@ -36,6 +38,8 @@ public class MechanumAutonomous extends LinearOpMode {
         leftBackDrive  = hardwareMap.get(DcMotorEx.class, "bLeft");
         rightFrontDrive = hardwareMap.get(DcMotorEx.class, "fRight");
         rightBackDrive = hardwareMap.get(DcMotorEx.class, "bRight");
+
+        armmotor=hardwareMap.get(DcMotor.class, “arm”);
 
         leftFrontDrive.setDirection(DcMotorEx.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotorEx.Direction.REVERSE);
@@ -51,11 +55,13 @@ public class MechanumAutonomous extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()&&count==0) {
 
-            driveEncoders(-200);
-            leftEncoders(600);
-            driveEncoders(800);
-            rightEncoders(600);
-            driveEncoders(800);
+            backEncoders(200);
+            turnleft(90);
+            backEncoders(100);
+            armPower = 1;
+            rightEncoders(250);
+            driveEncoders(100);
+            rightEncoders(50);
 
             // Show the elapsed game time and wheel power.
             count++;
