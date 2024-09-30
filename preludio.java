@@ -60,3 +60,111 @@ public class MechanumAutonomous extends LinearOpMode {
             // Show the elapsed game time and wheel power.
             count++;
         }
+        }
+    public void input(double leftFront, double rightFront, double leftBack, double rightBack)
+    {
+        leftFrontDrive.setPower(leftFront);
+        rightFrontDrive.setPower(rightFront);
+        leftBackDrive.setPower(leftBack);
+        rightBackDrive.setPower(rightBack);
+        sleep(500);
+    }
+    public void turnLeft(int angle)
+    {
+        int convert=revPerMM*angle*(38/10)+(angle*12/10);
+        encoders(-convert, convert, -convert, convert);
+    }
+    public void turnRight(int angle)
+    {
+        int convert=revPerMM*angle*(38/10)+(angle*12/10);
+        encoders(convert, -convert, convert, -convert);
+    }
+    public void driveEncoders(int target)
+    {
+        encoders(target, target, target, target);
+    }
+    public void backEncoders(int target)
+    {
+        encoders(-target, -target, -target, -target);
+    }
+    public void rightEncoders(int target)
+    {
+        encoders(target, -target, -target, target);
+    }
+    public void leftEncoders(int target)
+    {
+        encoders(-target, target, target, -target);
+    }
+
+    }
+    public void encoders(int leftFront, int rightFront, int leftBack, int rightBack)
+    {
+        leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        
+        leftFrontDrive.setTargetPosition(leftFront*revPerMM);
+        rightFrontDrive.setTargetPosition(rightFront*revPerMM);
+        leftBackDrive.setTargetPosition(leftBack*revPerMM);
+        rightBackDrive.setTargetPosition(rightBack*revPerMM);
+        
+        leftFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftBackDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightBackDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        
+        double power=0.2;
+        leftFrontDrive.setVelocity(1500);
+        rightFrontDrive.setVelocity(1500);
+        leftBackDrive.setVelocity(1500);
+        rightBackDrive.setVelocity(1500);
+        while (opModeIsActive()&&leftFrontDrive.isBusy()||rightFrontDrive.isBusy()||leftBackDrive.isBusy()||rightBackDrive.isBusy())
+        {
+        }
+        leftFrontDrive.setPower(0);
+        rightFrontDrive.setPower(0);
+        leftBackDrive.setPower(0);
+        rightBackDrive.setPower(0);
+    }
+    public void drive()
+    {
+        leftFrontDrive.setPower(1.0);
+        rightFrontDrive.setPower(1.0);
+        leftBackDrive.setPower(1.0);
+        rightBackDrive.setPower(1.0);
+        //input(0.4, 0.4, 0.4, 0.4);
+    }
+    public void topRight()
+    {
+        input(0.4, 0, 0, 0.4);
+    }
+    public void right()
+    {
+        input(0.4, -0.4, -0.4, 0.4);
+    }
+    public void bottomRight()
+    {
+        input(0, -0.4, -0.4, 0);
+    }
+    public void back()
+    {
+        input(-0.4, -0.4, -0.4, -0.4);
+    }
+    public void bottomLeft()
+    {
+        input(-0.4, 0, 0, -0.4);
+    }
+    public void left()
+    {
+        input(-0.4, 0.4, 0.4, -0.4);   
+    }
+    public void topLeft()
+    {
+        input(0, 0.4, 0.4, 0);
+    }
+    public void stop(double time)
+    {
+        input(0, 0, 0, 0);
+    }
+}
