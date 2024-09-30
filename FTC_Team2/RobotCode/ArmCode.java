@@ -26,3 +26,4 @@ public class ArmCode extends LinearOpMode {
     }
 }
 // Alex Cui September 25 2024 on 3:47 PM
+// nya ichi ni san nya arigato
