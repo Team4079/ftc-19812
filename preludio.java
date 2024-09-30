@@ -68,6 +68,7 @@ public class MechanumAutonomous extends LinearOpMode {
             rightEncoders(50);
             driveEncoders(100);
             rightEncoders(250);
+            armOne.setPower(1.0);
             backEncoders(100);
             rightEncoders(250);
             
