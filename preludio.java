@@ -57,15 +57,20 @@ public class MechanumAutonomous extends LinearOpMode {
          // run until the end of the match (driver presses STOP)
         while (opModeIsActive()&&count==0) {
             /*
+            driveEncoders(800); -- forward
+            leftEncoders(600); -- left (no turn)
             driveEncoders(800);
-            leftEncoders(600);
+            rightEncoders(600); -- right (no turn)
             driveEncoders(800);
-            rightEncoders(600);
-            driveEncoders(800);
+            turnLeft(90) -- degrees to turn left
+            turnRight(90) -- degress to turn but right
             */
-            rightEncoders(400);
-            backEncoders(500);
-            leftBottomDiagonal(200);
+            rightEncoders(50);
+            driveEncoders(100);
+            rightEncoders(250);
+            backEncoders(100);
+            rightEncoders(250);
+            
             
             // Show the elapsed game time and wheel power.
             count++;
@@ -106,7 +111,6 @@ public class MechanumAutonomous extends LinearOpMode {
         encoders(-target, target, target, -target);
     }
 
-    }
     public void encoders(int leftFront, int rightFront, int leftBack, int rightBack)
     {
         leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
