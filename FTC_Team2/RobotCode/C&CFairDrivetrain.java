@@ -67,7 +67,7 @@ public class MecanumTele extends OpMode {
         {
             if(reduce)
             {
-                speeds[i]/=3;
+                speeds[i]/=2;
             }
         }
         telemetry.addData("reduce", reduce);
