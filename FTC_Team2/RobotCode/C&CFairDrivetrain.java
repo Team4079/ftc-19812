@@ -15,9 +15,9 @@ public class MecanumTele extends OpMode {
     private DcMotor back_right;
     private double power=1;
     private boolean reduce;
+
     @Override
     public void init() {
-        reduce=false;
       
         front_left = hardwareMap.get(DcMotor.class, "fLeft");
         front_right = hardwareMap.get(DcMotor.class, "fRight");
@@ -33,7 +33,7 @@ public class MecanumTele extends OpMode {
         double twist  = gamepad1.right_stick_x*0.7;
 
 
-        /
+        
         double[] speeds = {
             (drive + -strafe + -twist),
             (drive - -strafe - -twist),
@@ -46,16 +46,7 @@ public class MecanumTele extends OpMode {
         for(int i = 0; i < speeds.length; i++) {
             if ( max < Math.abs(speeds[i]) ) max = Math.abs(speeds[i]);
         }
-        if(this.gamepad1.a)
-        {
-            if(!reduce)
-            {
-                reduce=true;
-            }
-            else if(reduce&&((speeds[0]*2)<=1)&&((speeds[1]*2)<=1)&&((speeds[2]*2)<=1)&&((speeds[3]*2)<=1)){
-                reduce=false;
-            }
-        }
+       
        
         if (max > 1) {
             for (int i = 0; i < speeds.length; i++) 
@@ -63,13 +54,7 @@ public class MecanumTele extends OpMode {
                 speeds[i] /= max;
             }
         }
-        for(int i =0; i<speeds.length;i++)
-        {
-            if(reduce)
-            {
-                speeds[i]/=2;
-            }
-        }
+        
         telemetry.addData("reduce", reduce);
         telemetry.addData("front_left", speeds[0]);
         telemetry.addData("front_right", speeds[1]);
@@ -77,10 +62,9 @@ public class MecanumTele extends OpMode {
         telemetry.addData("back_right", speeds[3]);
         telemetry.update();
        
-        front_left.setPower(speeds[0]);
-        front_right.setPower(speeds[1]);
-        back_left.setPower(speeds[2]);
-        back_right.setPower(speeds[3]);
+        front_left.setPower(speeds[0]/2);
+        front_right.setPower(speeds[1]/2);
+        back_left.setPower(speeds[2]/2);
+        back_right.setPower(speeds[3]/2);
     }
 }
-// daddy is sam
