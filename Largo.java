@@ -40,11 +40,12 @@ public class Largo extends LinearOpMode {
     private DcMotor RSlideMotor; //extend
     private DcMotor LSlideMotor; //extend
     private String testCase = "";
-
-    armAssign = hardwareMap.get(DcMotor.class, “arm_Assign”);
-
-    private int armPower = 0;
     
+    
+    armMotor = hardwareMap.get(DcMotor.class, “arm”);
+
+    private double armMotor = 0.0
+
     private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
 
     // TFOD_MODEL_ASSET points to a model file stored in the project Asset location,
@@ -56,12 +57,12 @@ public class Largo extends LinearOpMode {
     // Define the labels recognized in the model for TFOD (must be in training order!)
     // drive encoders and armpower
     driveEncoders(50);
-    armPower.setPower(0.5);
+    armMotor.setPower(0.5);
     leftEncoders(50);
-    armPower.setPower(-0.5);
+    armMotor.setPower(-0.5);
     turnRight(45);;
     driveEncoders(70);
-    armPower.setPower(0);
+    armMotor.setPower(0.0);
 
     private static final String[] LABELS = {
         "blue",
