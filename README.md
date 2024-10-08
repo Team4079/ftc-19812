@@ -17,3 +17,7 @@ Leads: Sehwan and Benny <br>
 
 Team 1: Nav, Aiden, Justin, Ruthvik, Sophia <br>
 Team 2: Adnan, Victor, Alex, Daniel, Benny (if needed)
+# INCIDENT LOG
+10/5 - HOLY SHIT the Preludio files were put in quantum superposition needless to say
+
+## ALWAYS NAME YOUR FILES IN ALL LOWERCASE!!!!!! AND ALSO MAKE SURE THERE AREN'T ANY SIMILAR NAMES!!!!!

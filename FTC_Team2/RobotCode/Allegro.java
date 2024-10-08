@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="Basic: Omni Linear OpMode", group="Linear Opmode")
 
+
 public class MechanumAutonomous extends LinearOpMode {
     private final double wheelCircumference = 75*3.14;
     private final double gearReduction = 3.61*5.23;
@@ -26,57 +27,46 @@ public class MechanumAutonomous extends LinearOpMode {
     private DcMotorEx rightFrontDrive = null;
     private DcMotorEx rightBackDrive = null;
 
-    private DcMotor armOne;
-    private DcMotor armTwo;
-    private int armOneState;
-    private double armOneCooldown = 0.0;
-    private int armTwoState;
-    private double armTwoCooldown = 0.0;
+    private int armPower = 0
 
-     @Override
+    @Override
     public void runOpMode() {
-
-     // Initialize the hardware variables. Note that the strings used here must correspond
+        
+        // Initialize the hardware variables. Note that the strings used here must correspond
         // to the names assigned during the robot configuration step on the DS or RC devices.
         leftFrontDrive  = hardwareMap.get(DcMotorEx.class, "fLeft");
         leftBackDrive  = hardwareMap.get(DcMotorEx.class, "bLeft");
         rightFrontDrive = hardwareMap.get(DcMotorEx.class, "fRight");
         rightBackDrive = hardwareMap.get(DcMotorEx.class, "bRight");
 
+        armmotor=hardwareMap.get(DcMotor.class, “arm”);
+
         leftFrontDrive.setDirection(DcMotorEx.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotorEx.Direction.REVERSE);
         rightFrontDrive.setDirection(DcMotorEx.Direction.REVERSE);
         rightBackDrive.setDirection(DcMotorEx.Direction.FORWARD);
-
-         armOne.hardwareMap.get(DcMotor.class , "arm")
-         armTwo.hardwareMap.get(DcMotor.class , "arm")
-
+        // Wait for the game to start (driver presses PLAY)
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+        int count=0;
         waitForStart();
         runtime.reset();
 
-         // run until the end of the match (driver presses STOP)
+        // run until the end of the match (driver presses STOP)
         while (opModeIsActive()&&count==0) {
-            /*
-            driveEncoders(800); -- forward
-            leftEncoders(600); -- left (no turn)
-            driveEncoders(800);
-            rightEncoders(600); -- right (no turn)
-            driveEncoders(800);
-            turnLeft(90) -- degrees to turn left
-            turnRight(90) -- degress to turn but right
-            */
-            backEncoders(250);
-            leftEncoders(100);
-            backEncoders(250);
-            armOne.setPower(1.0);
-            rightEncoders(100);
-            backEncoders(50);
-            
-            
+
+            backEncoders(200);
+            turnleft(90);
+            backEncoders(100);
+            armPower = 1;
+            rightEncoders(250);
+            driveEncoders(100);
+            rightEncoders(50);
+
             // Show the elapsed game time and wheel power.
             count++;
         }
-        }
+    }
     public void input(double leftFront, double rightFront, double leftBack, double rightBack)
     {
         leftFrontDrive.setPower(leftFront);
@@ -111,7 +101,22 @@ public class MechanumAutonomous extends LinearOpMode {
     {
         encoders(-target, target, target, -target);
     }
-
+    public void leftTopDiagonal(int target)
+    {
+        encoders(0, target, target, 0);
+    }
+    public void rightTopDiagonal(int target)
+    {
+        encoders(target, 0, 0, target);
+    }
+    public void leftBottomDiagonal(int target)
+    {
+        encoders(-target, 0, 0, -target);
+    }
+    public void rightBottomDiagonal(int target)
+    {
+        encoders(0, -target, -target, 0);
+    }
     public void encoders(int leftFront, int rightFront, int leftBack, int rightBack)
     {
         leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
