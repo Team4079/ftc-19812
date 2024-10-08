@@ -54,19 +54,20 @@ public class Largo extends LinearOpMode {
     // this is used when uploading models directly to the RC using the model upload interface.
     private static final String TFOD_MODEL_FILE = "/sdcard/FIRST/tflitemodels/ROLL-TAPE-Biased.tflite";
     // Define the labels recognized in the model for TFOD (must be in training order!)
-
+    // drive encoders and armpower
     driveEncoders(50);
     armPower.setPower(0.5);
     leftEncoders(50);
     armPower.setPower(-0.5);
-    bottomRight(70);
+    turnRight(45);;
+    driveEncoders(70);
     armPower.setPower(0);
 
     private static final String[] LABELS = {
-      "blue",
-      "red",
+        "blue",
+        "red",
     }
-public void drive()
+    public void drive()
     {
         leftFrontDrive.setPower(1.0);
         rightFrontDrive.setPower(1.0);
@@ -106,3 +107,4 @@ public void drive()
     {
         input(0, 0, 0, 0);
     }
+}
