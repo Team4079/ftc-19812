@@ -53,7 +53,7 @@ public class Largo extends LinearOpMode {
 
     driveEncoders(50);
     leftEncoders(50);
-    bottomLeft(70);
+    bottomRight(70);
     private static final String[] LABELS = {
       "blue",
       "red",
