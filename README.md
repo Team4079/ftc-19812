@@ -23,7 +23,7 @@ Adnan (ReallyOutOfContext) - 21 <br>
 Leads: Sehwan and Benny <br>
 
 Team 1: Nav, Aiden, Justin, Ruthvik, Sophia <br>
-Team 2: Adnan, Victor, Alex, Daniel, Benny (if needed)
+Team 2: Adnan, Victor, Alex, Daniel, Charles
 # INCIDENT LOG
 10/5 - HOLY SHIT the Preludio files were put in quantum superposition needless to say
 
