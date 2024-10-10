@@ -75,6 +75,7 @@ public class LinearSlideTest1 extends LinearOpMode {
                 } else {
                     slideArmState++;
                 }
+                slideArmCD = runtime;
             }
 
             // Send calculated power to wheels
