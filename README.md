@@ -1,5 +1,12 @@
 # FTC-19812
 FTC's code storage space. Yeah.
+
+# Today's Assignment
+Create a TeleOp file (Team 1: LinearSlideTest1 | Team 2: LinearSlideTest2) <br>
+Drivetrain (wheels/driving in mecanum) & 3-state slide (extend, retract, hold) that activates with B <br>
+Extend (-1.0), Retract (1.0), Hold (you know this.) The motor name is "slideMotor". <br>
+***PULL REQUEST BY 4:40PM!!!***
+
 # Member Computer #s
 Charles (Breathing01) - Personal <br>
 Nav (lmaoNebula) - "20" <br>
