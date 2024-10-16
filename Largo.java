@@ -41,11 +41,6 @@ public class Largo extends LinearOpMode {
     private DcMotor LSlideMotor; //extend
     private String testCase = "";
     
-    
-    armMotor = hardwareMap.get(DcMotor.class, “arm”);
-
-    private double armMotor = 0.0
-
     private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
 
     // TFOD_MODEL_ASSET points to a model file stored in the project Asset location,
@@ -55,20 +50,15 @@ public class Largo extends LinearOpMode {
     // this is used when uploading models directly to the RC using the model upload interface.
     private static final String TFOD_MODEL_FILE = "/sdcard/FIRST/tflitemodels/ROLL-TAPE-Biased.tflite";
     // Define the labels recognized in the model for TFOD (must be in training order!)
-    // drive encoders and armpower
-    driveEncoders(50);
-    armMotor.setPower(0.5);
-    leftEncoders(50);
-    armMotor.setPower(-0.5);
-    turnRight(45);;
-    driveEncoders(70);
-    armMotor.setPower(0.0);
 
+    driveEncoders(50);
+    leftEncoders(50);
+    bottomLeft(70);
     private static final String[] LABELS = {
-        "blue",
-        "red",
+      "blue",
+      "red",
     }
-    public void drive()
+public void drive()
     {
         leftFrontDrive.setPower(1.0);
         rightFrontDrive.setPower(1.0);
@@ -108,4 +98,4 @@ public class Largo extends LinearOpMode {
     {
         input(0, 0, 0, 0);
     }
-}
+    // I just lost my dooooooooooog
