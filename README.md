@@ -25,7 +25,7 @@ Leads: Sehwan and Benny <br>
 Team 1: Nav, Aiden, Justin, Ruthvik, Sophia <br>
 Team 2: Adnan, Victor, Alex, Daniel, Charles
 # INCIDENT LOG
-10/5 - HOLY SHIT the Preludio files were put in quantum superposition needless to say
+10/5 - HOLY SHIT the Preludio files were put in quantum superposition needless to say <br>
 10/16 - HOLY FKING SHIT Jayden Sun deleted all our files
 
 ## ALWAYS NAME YOUR FILES IN ALL LOWERCASE!!!!!! AND ALSO MAKE SURE THERE AREN'T ANY SIMILAR NAMES!!!!!
