@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="camel Case Level:", group="Linear OpMode")
-@Disabled
+@TeleOp(name="Linear Slide Test 1", group="Linear OpMode")
+
 public class LinearSlideTest1 extends LinearOpMode {
 
     // Declare OpMode members for each of the 4 motors.
@@ -17,8 +17,12 @@ public class LinearSlideTest1 extends LinearOpMode {
     private DcMotor rightFrontDrive = null;
     private DcMotor rightBackDrive = null;
     private DcMotor slideArm = null;
-    private ElapsedTime slideArmCD = new ElapsedTime();
+    private double slideArmCD = 0.0;
     private int slideArmState = 0;
+    private double motorPosition = 0.0;
+
+    motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODERS);
+    motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODERS);
 
     @Override
     public void runOpMode() {
@@ -33,16 +37,17 @@ public class LinearSlideTest1 extends LinearOpMode {
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
 
         slideArmState = 1;
+        motor.getCurrentPosition();
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         waitForStart();
         runtime.reset();
-        slideArmCD.reset();
 
         while (opModeIsActive()) {
             double max;
+            motorPosition = motor.getCurrentPosition();
 
             // POV Mode uses left joystick to go forward & strafe, and right joystick to rotate.
             double axial   = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
@@ -89,8 +94,7 @@ public class LinearSlideTest1 extends LinearOpMode {
                 slideArm.setPower(0.0);
             } else if(slideArmState == 3){
                 slideArm.setPower(-1.0);
-            }
-             else if(slideArmState == 4){
+            } else if(slideArmState == 4){
                 slideArm.setPower(0.0);
             }
 
@@ -98,6 +102,7 @@ public class LinearSlideTest1 extends LinearOpMode {
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
             telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);
+            telemetry.addData("Motor Position:", motorPosition);
             telemetry.update();
         }
     }}
