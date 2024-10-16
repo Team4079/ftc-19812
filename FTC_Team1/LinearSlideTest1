@@ -84,11 +84,11 @@ public class LinearSlideTest1 extends LinearOpMode {
             leftBackDrive.setPower(leftBackPower);
             rightBackDrive.setPower(rightBackPower);
             if(slideArmState == 1){
-                slideArm.setPower(-1.0);
-            } else if(slideArmState == 2){
                 slideArm.setPower(1.0);
-            } else if(slideArmState == 3){
+            } else if(slideArmState == 2){
                 slideArm.setPower(0.0);
+            } else if(slideArmState == 3){
+                slideArm.setPower(-1.0);
             }
              else if(slideArmState == 4){
                 slideArm.setPower(0.0);
