@@ -3,6 +3,7 @@ package RobotCode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 @TeleOp(name="Mecanum Drive Example", group="Iterative Opmode")
@@ -15,6 +16,7 @@ public class MecanumTele extends OpMode {
     private DcMotor back_right;
     private double power=1;
     private boolean reduce;
+    private DcMotor arm;
 
     @Override
     public void init() {
@@ -23,6 +25,7 @@ public class MecanumTele extends OpMode {
         front_right = hardwareMap.get(DcMotor.class, "fRight");
         back_left = hardwareMap.get(DcMotor.class, "bLeft");
         back_right = hardwareMap.get(DcMotor.class, "bRight");
+        arm = hardwareMap.get(DcMotor.class, "arm")
         back_right.setDirection(DcMotor.Direction.REVERSE);
     }
     @Override
