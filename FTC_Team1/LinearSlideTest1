@@ -70,7 +70,7 @@ public class LinearSlideTest1 extends LinearOpMode {
             }
 
             if(gamepad1.b && runtime-slideArmCD >= 0.2){
-                if(slideArmState >= 3){
+                if(slideArmState >= 4){
                     slideArmState = 1;
                 } else {
                     slideArmState++;
@@ -87,6 +87,9 @@ public class LinearSlideTest1 extends LinearOpMode {
             } else if(slideArmState == 2){
                 slideArm.setPower(1.0);
             } else if(slideArmState == 3){
+                slideArm.setPower(0.0);
+            }
+             else if(slideArmState == 4){
                 slideArm.setPower(0.0);
             }
 
