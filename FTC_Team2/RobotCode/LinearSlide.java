@@ -18,8 +18,10 @@ public class MecanumTele extends OpMode {
     private boolean reduce;
     private DcMotor arm;
     public ElapsedTime timesofar = new ElapsedTime();
-    private double armLastPressed 
+    private double armLastPressed;
     private int armStates = 2
+    private double motorPosition = 0.0;
+    
     @Override
     public void init() {
       
@@ -31,6 +33,10 @@ public class MecanumTele extends OpMode {
         back_right.setDirection(DcMotor.Direction.REVERSE);
         arm.setMode(STOP_AND_RESET_ENCODER)
         arm.setMode(RUN_WITHOUT_ENCODER)
+        motorPosition = arm.getCurrentPosition();
+
+        telemetry.addData("Status", "Intizaised");
+        telemetry.update();
     }
     @Override
     public void loop() {
@@ -38,6 +44,8 @@ public class MecanumTele extends OpMode {
         double drive  = gamepad1.left_stick_y*0.7;
         double strafe = gamepad1.left_stick_x*0.7;
         double twist  = gamepad1.right_stick_x*0.7;
+
+        motorPosition = arm.getCurrentPosition();
 
 
         
@@ -63,21 +71,24 @@ public class MecanumTele extends OpMode {
         }
 
         if (gamepad1.a) {
-            if(timesofar.time() - servoLastPressed > 2.0){
-                servoLastPressed = timesofar.time();
-                servoState = !servoState;
+            if(timesofar.time() - armLastPressed > 0.5){
+                armLastPressed = timesofar.time();
+                armStates++
+            if (armStates >= 5){
+                armStates = 1;
+            }
             }
         }
         
-        
+    
         if (armStates==1) {
-            arm.setPower(1)
+            arm.setPower(1.0)
         } else if (armStates == 2) {
-            arm.setPower(0)
+            arm.setPower(-0.1)
         } else if (armStates == 3) {
-            arm.setPower(-1)
-        } else if (armStates ==4) {
-            arm.setPower(0)
+            arm.setPower(-1.0)
+        } else if (armStates == 4) {
+            arm.setPower(-0.1)
         }
         
         
@@ -86,6 +97,7 @@ public class MecanumTele extends OpMode {
         telemetry.addData("front_right", speeds[1]);
         telemetry.addData("back_left", speeds[2]);
         telemetry.addData("back_right", speeds[3]);
+        telemetry.addData("motor position", motorPosition)
         telemetry.update();
        
         front_left.setPower(speeds[0]/2);
