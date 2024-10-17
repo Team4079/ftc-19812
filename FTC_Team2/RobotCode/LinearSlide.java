@@ -29,7 +29,7 @@ public class MecanumTele extends OpMode {
         front_right = hardwareMap.get(DcMotor.class, "fRight");
         back_left = hardwareMap.get(DcMotor.class, "bLeft");
         back_right = hardwareMap.get(DcMotor.class, "bRight");
-        arm = hardwareMap.get(DcMotor.class, "arm")
+        arm = hardwareMap.get(DcMotor.class, "slideMotor")
         back_right.setDirection(DcMotor.Direction.REVERSE);
         arm.setMode(STOP_AND_RESET_ENCODER)
         arm.setMode(RUN_WITHOUT_ENCODER)
@@ -82,11 +82,17 @@ public class MecanumTele extends OpMode {
         
     
         if (armStates==1) {
-            arm.setPower(1.0)
+            arm.setPower(0.75)
+            if (motorPosition>=-110.0) {
+                armStates++
+            }
         } else if (armStates == 2) {
             arm.setPower(-0.1)
         } else if (armStates == 3) {
-            arm.setPower(-1.0)
+            arm.setPower(-0.75)
+            if (motorPosition<=-3115.0) {
+                armStates++
+            }
         } else if (armStates == 4) {
             arm.setPower(-0.1)
         }
