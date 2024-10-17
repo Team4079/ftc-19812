@@ -17,7 +17,9 @@ public class MecanumTele extends OpMode {
     private double power=1;
     private boolean reduce;
     private DcMotor arm;
-
+    public ElapsedTime timesofar = new ElapsedTime();
+    private double armLastPressed 
+    private int armStates = 0
     @Override
     public void init() {
       
@@ -27,6 +29,7 @@ public class MecanumTele extends OpMode {
         back_right = hardwareMap.get(DcMotor.class, "bRight");
         arm = hardwareMap.get(DcMotor.class, "arm")
         back_right.setDirection(DcMotor.Direction.REVERSE);
+        arm.setMode(STOP_AND_RESET_ENCODER)
     }
     @Override
     public void loop() {
@@ -57,6 +60,14 @@ public class MecanumTele extends OpMode {
                 speeds[i] /= max;
             }
         }
+
+        if (gamepad1.a) {
+            if(timesofar.time() - servoLastPressed > 2.0){
+                servoLastPressed = timesofar.time();
+                servoState = !servoState;
+            }
+        }
+
         
         telemetry.addData("reduce", reduce);
         telemetry.addData("front_left", speeds[0]);
