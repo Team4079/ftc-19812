@@ -1,10 +1,11 @@
 # FTC-19812
-FTC's code storage space. Yeah.
+FTC's code storage space. Yeah. 
+Link to form: [https://](https://docs.google.com/forms/d/e/1FAIpQLSdAiMNMI8YaTNKYYnR_GRcwgYoKDemRbkxWjNDewOunyp0hGw/viewform)
 
 # Today's Assignment
-Create a TeleOp file (Team 1: LinearSlideTest1 | Team 2: LinearSlideTest2) <br>
-Drivetrain (wheels/driving in mecanum) & 3-state slide (extend, retract, hold) that activates with B <br>
-Extend (-1.0), Retract (1.0), Hold (you know this.) The motor name is "slideMotor". <br>
+Fix up your LinearSlide files and implement the encoders in order to set limits on how far the slide can go up and down (Top: -3115.0, Bottom: -20.0)
+So that if it's extending and it hits the limit, it goes onto the **next state** (up > hold, or down > hold).
+And during the **hold** state, exert a ***tiny*** upwards force constantly to counteract gravity (just trial and error).
 ***PULL REQUEST BY 4:40PM!!!***
 
 # Member Computer #s
