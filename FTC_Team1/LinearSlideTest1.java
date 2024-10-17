@@ -91,11 +91,11 @@ public class LinearSlideTest1 extends LinearOpMode {
             if(slideArmState == 1){
                 slideArm.setPower(1.0);
             } else if(slideArmState == 2){
-                slideArm.setPower(0.0);
+                slideArm.setPower(0.1);
             } else if(slideArmState == 3){
                 slideArm.setPower(-1.0);
             } else if(slideArmState == 4){
-                slideArm.setPower(0.0);
+                slideArm.setPower(0.1);
             }
 
             // Show the elapsed game time and wheel power.
