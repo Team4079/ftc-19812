@@ -27,16 +27,16 @@ public class LinearSlideTest1 extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        leftFrontDrive  = hardwareMap.get(DcMotor.class, "frontLeft");
-        leftBackDrive  = hardwareMap.get(DcMotor.class, "backLeft");
-        rightFrontDrive = hardwareMap.get(DcMotor.class, "frontRight");
-        rightBackDrive = hardwareMap.get(DcMotor.class, "backRight");
+        leftFrontDrive  = hardwareMap.get(DcMotor.class, "fLeft");
+        leftBackDrive  = hardwareMap.get(DcMotor.class, "bLeft");
+        rightFrontDrive = hardwareMap.get(DcMotor.class, "fRight");
+        rightBackDrive = hardwareMap.get(DcMotor.class, "bRight");
         slideArm = hardwareMap.get(DcMotor.class, "slideMotor");
 
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
 
-        slideArmState = 1;
+        slideArmState = 4;
         motor.getCurrentPosition();
 
         telemetry.addData("Status", "Initialized");
@@ -74,13 +74,13 @@ public class LinearSlideTest1 extends LinearOpMode {
                 rightBackPower  /= max;
             }
 
-            if(gamepad1.b && runtime-slideArmCD >= 0.2){
+            if(gamepad1.b && runtime.time()-slideArmCD >= 0.2){
                 if(slideArmState >= 4){
                     slideArmState = 1;
                 } else {
                     slideArmState++;
                 }
-                slideArmCD = runtime;
+                slideArmCD = runtime.time();
             }
 
             // Send calculated power to wheels
@@ -94,14 +94,14 @@ public class LinearSlideTest1 extends LinearOpMode {
                     slideArmState++;
                 }
             } else if(slideArmState == 2){
-                slideArm.setPower(0.1);
+                slideArm.setPower(-0.1);
             } else if(slideArmState == 3){
                 slideArm.setPower(-1.0);
                 if(motorPosition >= -20.0){
                     slideArmState++;
                 }
             } else if(slideArmState == 4){
-                slideArm.setPower(0.1);
+                slideArm.setPower(-0.1);
             }
 
             // Show the elapsed game time and wheel power.
