@@ -90,10 +90,16 @@ public class LinearSlideTest1 extends LinearOpMode {
             rightBackDrive.setPower(rightBackPower);
             if(slideArmState == 1){
                 slideArm.setPower(1.0);
+                if(motorPosition <= -3115.0){
+                    slideArmState++;
+                }
             } else if(slideArmState == 2){
                 slideArm.setPower(0.1);
             } else if(slideArmState == 3){
                 slideArm.setPower(-1.0);
+                if(motorPosition >= -20.0){
+                    slideArmState++;
+                }
             } else if(slideArmState == 4){
                 slideArm.setPower(0.1);
             }
