@@ -6,6 +6,39 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+// Search up "Java Enums" for an explanation of this topic. I'll cover it in the next few meetings.
+
+public enum LinearSlideStates {
+
+    SlideUp {
+        @Override
+        public LinearSlideStates nextState() { //Settings a function for the states to use each. Return = when function is called, set value to this state.
+            return HoldingOne;
+        }
+    },
+    HoldingOne {
+        @Override
+        public LinearSlideStates nextState() {
+            return SlideDown;
+        }
+    },
+    SlideDown {
+        @Override
+        public LinearSlideStates nextState() {
+            return HoldingTwo;
+        }
+    },
+    HoldingTwo {
+        @Override
+        public LinearSlideStates nextState() {
+            return SlideUp;
+        }
+    };
+
+    public abstract LinearSlideStates nextState(); 
+}
+
+
 @TeleOp(name="Linear Slide Test 1", group="Linear OpMode")
 
 public class LinearSlideTest1 extends LinearOpMode {
@@ -18,11 +51,11 @@ public class LinearSlideTest1 extends LinearOpMode {
     private DcMotor rightBackDrive = null;
     private DcMotor slideArm = null;
     private double slideArmCD = 0.0;
-    private int slideArmState = 0;
+    LinearSlideStates slideArmState = LinearSlideStates.HoldingTwo;
     private double motorPosition = 0.0;
 
-    motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODERS);
-    motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODERS);
+    slideArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    slideArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODERS);
 
     @Override
     public void runOpMode() {
@@ -36,9 +69,6 @@ public class LinearSlideTest1 extends LinearOpMode {
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
 
-        slideArmState = 4;
-        motor.getCurrentPosition();
-
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
@@ -47,7 +77,7 @@ public class LinearSlideTest1 extends LinearOpMode {
 
         while (opModeIsActive()) {
             double max;
-            motorPosition = motor.getCurrentPosition();
+            motorPosition = slideArm.getCurrentPosition();
 
             // POV Mode uses left joystick to go forward & strafe, and right joystick to rotate.
             double axial   = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
@@ -75,34 +105,17 @@ public class LinearSlideTest1 extends LinearOpMode {
             }
 
             if(gamepad1.b && runtime.time()-slideArmCD >= 0.2){
-                if(slideArmState >= 4){
-                    slideArmState = 1;
-                } else {
-                    slideArmState++;
-                }
+                slideArmState = slideArmState.nextState();
                 slideArmCD = runtime.time();
             }
+
+            checkAndSetSlideState(); // So this is jus thte switch states code but turned neater
 
             // Send calculated power to wheels
             leftFrontDrive.setPower(leftFrontPower);
             rightFrontDrive.setPower(rightFrontPower);
             leftBackDrive.setPower(leftBackPower);
             rightBackDrive.setPower(rightBackPower);
-            if(slideArmState == 1){
-                slideArm.setPower(1.0);
-                if(motorPosition <= -3115.0){
-                    slideArmState++;
-                }
-            } else if(slideArmState == 2){
-                slideArm.setPower(-0.1);
-            } else if(slideArmState == 3){
-                slideArm.setPower(-1.0);
-                if(motorPosition >= -20.0){
-                    slideArmState++;
-                }
-            } else if(slideArmState == 4){
-                slideArm.setPower(-0.1);
-            }
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
@@ -111,4 +124,27 @@ public class LinearSlideTest1 extends LinearOpMode {
             telemetry.addData("Motor Position:", motorPosition);
             telemetry.update();
         }
-    }}
+    }
+
+    public void checkAndSetSlideState()
+    {
+        if(slideArmState == LinearSlideStates.SlideUp){
+                slideArm.setPower(0.8);
+
+            if(motorPosition <= -3115.0){
+                slideArmState = slideArmState.nextState();
+            }
+        } else if(slideArmState == LinearSlideStates.HoldingOne){
+            slideArm.setPower(-0.1);
+        } else if(slideArmState == LinearSlideStates.SlideDown){
+            slideArm.setPower(-0.8);
+
+            if(motorPosition >= -100.0){
+                slideArmState = slideArmState.nextState();
+            }
+        } else if(slideArmState == LinearSlideStates.HoldingTwo){
+            slideArm.setPower(-0.1);
+        }
+    }
+
+}
