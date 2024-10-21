@@ -145,6 +145,12 @@ public class MechanumAutonomous extends LinearOpMode {
         rightFrontDrive.setPower(0);
         leftBackDrive.setPower(0);
         rightBackDrive.setPower(0);
+
+        driveencoders(1830);
+        turnright(180);
+        driveencoders(610);
+        turnleft(90);
+        driveencoders(1830);
     }
     public void drive()
     {
