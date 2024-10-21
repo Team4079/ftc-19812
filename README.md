@@ -1,12 +1,27 @@
 # FTC-19812
 FTC's code storage space. Yeah. 
-Link to form: [https://](https://docs.google.com/forms/d/e/1FAIpQLSdAiMNMI8YaTNKYYnR_GRcwgYoKDemRbkxWjNDewOunyp0hGw/viewform)
 
 # Today's Assignment
-Fix up your LinearSlide files and implement the encoders in order to set limits on how far the slide can go up and down (Top: -3115.0, Bottom: -20.0)
-So that if it's extending and it hits the limit, it goes onto the **next state** (up > hold, or down > hold).
-And during the **hold** state, exert a ***tiny*** upwards force constantly to counteract gravity (just trial and error).
+[This is the link to the field map w/measurements](https://www.firstinspires.org/resource-library/ftc/game-and-season-info)
+
+We should all have 4 files by the end of this: 
+**AutoLongBasket** <br>
+Start, score on high basket with preloaded sample, push the samples of the spike marks into observation zone, park.
+**AutoLongSpecimen** <br>
+Start, score preloaded specimen, push the samples of the spike marks into observation zone, park.
+<br>
+<br>
+
+**AutoShortBasket** <br>
+Start, score on high basket, park.
+**AutoShortSetup** <br>
+Start, push the samples of the spike marks into observation zone, park.
+
+### Team 1 Does AutoLongBasket and AutoShortBasket, Team 2 AutoLongSpecimen and AutoShortSetup
+
 ***PULL REQUEST BY 4:40PM!!!***
+
+
 
 # Member Computer #s
 Charles (Breathing01) - Personal <br>
