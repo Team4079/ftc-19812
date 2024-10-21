@@ -4,18 +4,18 @@ FTC's code storage space. Yeah.
 # Today's Assignment
 [This is the link to the field map w/measurements](https://www.firstinspires.org/resource-library/ftc/game-and-season-info)
 
-We should all have 4 files by the end of this: 
+We should all have 4 files by the end of this: <br>
 **AutoLongBasket** <br>
-Start, score on high basket with preloaded sample, push the samples of the spike marks into observation zone, park.
+Start, score on high basket with preloaded sample, push the samples of the spike marks into observation zone, park. <br>
 **AutoLongSpecimen** <br>
-Start, score preloaded specimen, push the samples of the spike marks into observation zone, park.
+Start, score preloaded specimen, push the samples of the spike marks into observation zone, park. <br>
 <br>
 <br>
 
 **AutoShortBasket** <br>
-Start, score on high basket, park.
+Start, score on high basket, park. <br>
 **AutoShortSetup** <br>
-Start, push the samples of the spike marks into observation zone, park.
+Start, push the samples of the spike marks into observation zone, park. <br>
 
 ### Team 1 Does AutoLongBasket and AutoShortBasket, Team 2 AutoLongSpecimen and AutoShortSetup
 
