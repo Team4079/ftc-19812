@@ -17,7 +17,7 @@ Start, push the samples of the spike marks into observation zone, park. <br>
 
 ### Team 1 Does AutoLongBasket and AutoShortBasket, Team 2 AutoLongSpecimen and AutoShortSetup
 
-__The arm is named "slideMotor" and we won't be using claw code. Instead, us the terms "Intake"/"Release" in comments to express that code. GO!!!!!!__
+__The arm is named "slideMotor" and we won't be using claw code. Instead, us the terms "Intake"/"Release" in comments to express that code. Each tile is 610mm in size. GO!!!!!!__
 
 ***PULL REQUEST BY 4:40PM!!!***
 
