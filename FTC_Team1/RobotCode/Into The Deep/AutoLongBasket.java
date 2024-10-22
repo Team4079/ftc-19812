@@ -45,20 +45,6 @@ public class AutoLongBasket extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        
-        /*
-        Blue Net:
-        turnLeft(180);
-        arm to score thing here
-        turnLeft(90);
-        driveEncoders(3050);
-        turnLeft(90);
-        driveEncoders(610);
-
-        Blue Observation:
-        
-        */
-
 
     }
 
@@ -183,5 +169,16 @@ public class AutoLongBasket extends LinearOpMode {
     public void stop(double time)
     {
         input(0, 0, 0, 0);
+    }
+    public void basket(){
+        turnLeft(90);
+        driveEncoders(610);
+        // arm to score thing here
+        turnLeft(180);
+        driveEncoders(2440);
+        turnLeft(90);
+        driveEncoders(1220);
+        rightEncoders(610);
+        backEncoders(1220);
     }
 }
