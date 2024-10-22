@@ -51,37 +51,21 @@ public class MechanumAutonomous extends LinearOpMode {
          // run until the end of the match (driver presses STOP)
         while (opModeIsActive()&&count==0) {
         /*
-        Blue Net
-            driveEncoders(1830);
-            leftEncoders(???);
+        Blue/Red Net Zone
+            driveEncoders(1524);
+            leftEncoders(458);
             turnLeft(90);
             turnLeft (90) (after picking up the sample)
-            leftEncoders(??);
-            driveEncoders(1830);
+            leftEncoders(458);
+            driveEncoders(1524);
 
-        Red Obs
-            driveEncoders(1830);
-            rightEncoders(???);
+        Red/Blue Observation Station
+            driveEncoders(1524);
+            rightEncoders(458);
             turnRight(90);
             turnRight(90) (after picking up the sample)
-            rightEncoders(??);
-            driveEncoders(1830);
-
-        Blue Obs
-            driveEncoders(1830);
-            rightEncoders(???);
-            turnRight(90);
-            turnRight(90) (after picking up the sample)
-            rightEncoders(??);
-            driveEncoders(1830);
-
-        Red Net
-            driveEncoders(1830);
-            leftEncoders(???);
-            turnLeft(90);
-            turnLeft(90) (after picking up the sample)
-            leftEncoders(??);
-            driveEncoders(1830);
+            rightEncoders(458);
+            driveEncoders(1524);
         */
        }
     public void input(double leftFront, double rightFront, double leftBack, double rightBack)
