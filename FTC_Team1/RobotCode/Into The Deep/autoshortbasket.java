@@ -1,4 +1,4 @@
-//Start, score on high basket, park.
+//Start, score on low basket, park.
 
 package RobotCode;
 
@@ -17,6 +17,8 @@ public class MechanumAutonomous extends LinearOpMode {
     private final double gearReduction = 3.61*5.23;
     private final double counts = 28.0;
     
+    private int slideMotor;
+
     private final double rev = counts*gearReduction;
     private final int revPerMM = (int)rev/(int)wheelCircumference;
     private final double inches = revPerMM*25.4;
@@ -28,6 +30,7 @@ public class MechanumAutonomous extends LinearOpMode {
     private DcMotorEx rightFrontDrive = null;
     private DcMotorEx rightBackDrive = null;
 
+
     @Override
     public void runOpMode() { 
         // Initialize the hardware variables. Note that the strings used here must correspond
@@ -36,6 +39,8 @@ public class MechanumAutonomous extends LinearOpMode {
         leftBackDrive  = hardwareMap.get(DcMotorEx.class, "bLeft");
         rightFrontDrive = hardwareMap.get(DcMotorEx.class, "fRight");
         rightBackDrive = hardwareMap.get(DcMotorEx.class, "bRight");
+
+        slideMotor = hardwareMap.get(DcMotorEx.class,"armMotor");
 
         leftFrontDrive.setDirection(DcMotorEx.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotorEx.Direction.REVERSE);
@@ -51,22 +56,38 @@ public class MechanumAutonomous extends LinearOpMode {
          // run until the end of the match (driver presses STOP)
         while (opModeIsActive()&&count==0) {
         /*
-        Blue/Red Net Zone
-            driveEncoders(1524);
-            leftEncoders(458);
-            turnLeft(90);
-            turnLeft (90) (after picking up the sample)
-            leftEncoders(458);
-            driveEncoders(1524);
+        Blue Observation Station
+            driveEncoders(2440);
+            turnLeft(45);
+            throw the sample in the basket
+            
+                I think sam said that we only score one sample, so in case i am both wrong and stupid, use this code
+                    turnRight(45)
+                    backEncoders(1525);
+                    turnRight(90);
+                    driveEncoders(915);
+                    pick up sample
+                    turnRight(90);
+                    rightEncoders(915);
+                    driveEncoders(1525);
+                    throw sample in the basket
 
-        Red/Blue Observation Station
-            driveEncoders(1524);
-            rightEncoders(458);
-            turnRight(90);
-            turnRight(90) (after picking up the sample)
-            rightEncoders(458);
-            driveEncoders(1524);
+        Blue Net
+            driveEncoders(2440);
+            turnRight(45);
+            throw the sample in the basket
+
+                    turnLeft(45)
+                    backEncoders(1525);
+                    turnLeft(90);
+                    driveEncoders(915);
+                    pick up sample
+                    turnRight(90);
+                    rightEncoders(915);
+                    driveEncoders(1525);
+                    throw sample in the basket
         */
+       
        }
     public void input(double leftFront, double rightFront, double leftBack, double rightBack)
     {
