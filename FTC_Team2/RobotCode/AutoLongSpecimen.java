@@ -50,16 +50,50 @@ public class MechanumAutonomous extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()&&count==0) { 
-            driveEncoders(1830);
-            turnRight(180);
-            driveEncoders(610);
-            turnLeft(90);
-            driveEncoders(1830);
+            
+            //for when robot next to basket (sigma!)
+            sigmabasket();
+            alphaobservation();
+            //next to observation zone/parking
             
             // Show the elapsed game time and wheel power.
             count++;
         }
          }
+
+    public void sigmabasket()
+    {
+        // Robot next to basket
+        driveEncoders(610);
+        rightEncoders(915);
+        // plant the specimen (cement)
+        leftEncoder(915);
+        driveEncoders(610);
+        leftEncoders(305);
+        turnLeft(180);
+        // now we push the thingy
+        driveEncoders(610);
+        turnLeft(90);
+        driveEncoders(2440);
+        turnRight(90);
+        driveEncoders(610);
+
+    }
+    public void alphaobservation()
+    {
+        // Robot next to basket
+        driveEncoders(610);
+        leftEncoders(915);
+        // plant the specimen (cement)
+        rightEncoder(915);
+        driveEncoders(610);
+        rightEncoders(305);
+        turnLeft(180);
+        // now we push the thingy
+        driveEncoders(1810);
+
+    }
+
     public void input(double leftFront, double rightFront, double leftBack, double rightBack)
     {
         leftFrontDrive.setPower(leftFront);
