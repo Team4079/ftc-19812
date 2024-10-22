@@ -45,6 +45,7 @@ public class AutoLongBasket extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
+        basket();
 
     }
 
@@ -181,4 +182,14 @@ public class AutoLongBasket extends LinearOpMode {
         rightEncoders(610);
         backEncoders(1220);
     }
+    public void observation(){
+        driveEncoders(300);
+        turnLeft(90);
+        driveEncoders(1371.6);
+        turnLeft(45);
+        sleep(3000)
+        turnRight(45);
+        backEncoders(1676.2);
+        leftEncoders(300);
+     }
 }
