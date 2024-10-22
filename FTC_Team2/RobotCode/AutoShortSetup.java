@@ -50,16 +50,34 @@ public class MechanumAutonomous extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()&&count==0) { 
-            driveEncoders(1830);
-            turnRight(180);
-            driveEncoders(610);
-            turnLeft(90);
-            driveEncoders(1830);
             
+            bumblingbasket();
+            
+            perkyparking();
             // Show the elapsed game time and wheel power.
             count++;
         }
          }
+
+    public void bumblingbasket()
+    {
+        driveEncoders(1830);
+        leftEncoders(305);
+        turnLeft(180);
+        driveEncoders(610);
+        turnLeft(90)
+        driveEncoders(2440);
+        turnRight(90);
+        driveEncoders(610);
+    }
+
+    public void perkyparking()
+    {
+        driveEncoders(1830);
+        rightEncoders(305);
+        turnLeft(180);
+        driveEncoders(1830);
+    }
     public void input(double leftFront, double rightFront, double leftBack, double rightBack)
     {
         leftFrontDrive.setPower(leftFront);
