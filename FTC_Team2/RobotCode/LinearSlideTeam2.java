@@ -123,11 +123,11 @@ public class LinearSlideTest1 extends LinearOpMode {
                 clawCD = runtime.time();
             }
             if (in == false){
-                topclaw.setPower (1);
-                bottomclaw.setPower(-1);
+                topclaw.setPosition (1);
+                bottomclaw.setPosition(-1);
             }else if (in == true){
-                topclaw.setPower(-1)
-                bottomclaw.setPower(1);
+                topclaw.setPosition(-1)
+                bottomclaw.setPosition(1);
             }
             // Send calculated power to wheels
             leftFrontDrive.setPower(leftFrontPower);
