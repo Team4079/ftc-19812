@@ -48,6 +48,8 @@ public class LinearSlideTest1 extends LinearOpMode {
     private DcMotor rightFrontDrive = null;
     private DcMotor rightBackDrive = null;
     private DcMotor slideArm = null;
+    private Servo upperServo = null;
+    private Servo lowerServo = null;
     private DcMotor clawState = null;
     private double slideArmCD = 0.0;
     private double clawCD = 0.0;
@@ -65,12 +67,16 @@ public class LinearSlideTest1 extends LinearOpMode {
         rightFrontDrive = hardwareMap.get(DcMotor.class, "fRight");
         rightBackDrive = hardwareMap.get(DcMotor.class, "bRight");
         slideArm = hardwareMap.get(DcMotor.class, "slideMotor");
+        upperServo = hardwareMap.get(Servo.class, "topIntake");
+        lowerServo = hardwareMap.get(Servo.class, "bottomIntake");
 
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
+
+        clawState = 1;
 
         waitForStart();
         runtime.reset();
@@ -111,16 +117,21 @@ public class LinearSlideTest1 extends LinearOpMode {
 
             clawState = 1
 
-            if(gamepad1.a){
-                if(clawState == 1 && runtime.time()-clawCD >= 0.2){
+            if(gamepad1.a && runtime.time()-clawCD >= 0.2){
+                if(clawState == 1){
                     clawState = 2;
-                } else {
+                    clawCD = runtime.time();
+                } else if(clawState >= 2) {
                     clawState = 1;
+                    clawCD = runtime.time();
                 }
             
-            servo.setPosition(1.0);
-            servo.setPosition(-1.0);
-
+            if(clawState == 1){
+                upperServo.setPosition(1.0);
+                lowerServo.setPosition(-1.0);
+            } else if(clawState == 2){
+                lowerServo.setPosition(1.0);
+                upperServo.setPosition(-1.0);
             }
 
             checkAndSetSlideState(); // So this is jus thte switch states code but turned neater
