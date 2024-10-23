@@ -1,5 +1,3 @@
-package org.firstinspires.ftc.robotcontroller.external.samples;
-
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -50,7 +48,9 @@ public class LinearSlideTest1 extends LinearOpMode {
     private DcMotor rightFrontDrive = null;
     private DcMotor rightBackDrive = null;
     private DcMotor slideArm = null;
+    private DcMotor clawState = null;
     private double slideArmCD = 0.0;
+    private double clawCD = 0.0;
     LinearSlideStates slideArmState = LinearSlideStates.HoldingTwo;
     private double motorPosition = 0.0;
 
@@ -107,6 +107,20 @@ public class LinearSlideTest1 extends LinearOpMode {
             if(gamepad1.b && runtime.time()-slideArmCD >= 0.2){
                 slideArmState = slideArmState.nextState();
                 slideArmCD = runtime.time();
+            }
+
+            clawState = 1
+
+            if(gamepad1.a){
+                if(clawState == 1 && runtime.time()-clawCD >= 0.2){
+                    clawState = 2;
+                } else {
+                    clawState = 1;
+                }
+            
+            servo.setPosition(1.0);
+            servo.setPosition(-1.0);
+
             }
 
             checkAndSetSlideState(); // So this is jus thte switch states code but turned neater
