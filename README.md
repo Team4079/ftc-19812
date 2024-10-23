@@ -4,7 +4,7 @@ FTC's code storage space. Yeah.
 # Today's Assignment
 [This is the link to the field map w/measurements](https://www.firstinspires.org/resource-library/ftc/game-and-season-info)  IT'S IN MANUAL #9
 
-UGHAFSIAKDHFIPWJEIFEW ***CLAW***
+UGHAFSIAKDHFIPWJEIFEW ***CLAW***, MAKE SURE IT'S ON THE LINEARSLIDE FILE.
 
 So basically the claw is made of two servo-controlled wheels pointing towards each other.
 When they spin towards each other, the sample is intaked; away from each other and the sample is spit out.
