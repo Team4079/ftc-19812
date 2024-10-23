@@ -59,10 +59,16 @@ public class MechanumAutonomous extends LinearOpMode {
         Observation Station
             driveEncoders(2440);
             turnLeft(45);
+            armShoot();
+            turnRight(45);
+            backEncoders(2440);
 
         Net
             driveEncoders(2440);
             turnRight(45);
+            armShoot();
+            turnLeft(45);
+            backEncoders(2440)
 
         */
        
