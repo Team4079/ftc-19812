@@ -56,36 +56,14 @@ public class MechanumAutonomous extends LinearOpMode {
          // run until the end of the match (driver presses STOP)
         while (opModeIsActive()&&count==0) {
         /*
-        Blue Observation Station
+        Observation Station
             driveEncoders(2440);
             turnLeft(45);
-            throw the sample in the basket
-            
-                I think sam said that we only score one sample, so in case i am both wrong and stupid, use this code
-                    turnRight(45)
-                    backEncoders(1525);
-                    turnRight(90);
-                    driveEncoders(915);
-                    pick up sample
-                    turnRight(90);
-                    rightEncoders(915);
-                    driveEncoders(1525);
-                    throw sample in the basket
 
-        Blue Net
+        Net
             driveEncoders(2440);
             turnRight(45);
-            throw the sample in the basket
 
-                    turnLeft(45)
-                    backEncoders(1525);
-                    turnLeft(90);
-                    driveEncoders(915);
-                    pick up sample
-                    turnRight(90);
-                    rightEncoders(915);
-                    driveEncoders(1525);
-                    throw sample in the basket
         */
        
        }
