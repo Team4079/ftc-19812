@@ -4,13 +4,11 @@ FTC's code storage space. Yeah.
 # Today's Assignment
 [This is the link to the field map w/measurements](https://www.firstinspires.org/resource-library/ftc/game-and-season-info)  IT'S IN MANUAL #9
 
-UGHAFSIAKDHFIPWJEIFEW ***CLAW***, MAKE SURE IT'S ON THE LINEARSLIDE FILE.
+OKAY ADD THE LINEARSLIDE + CLAW TO THE AUTONOMOUS FILE!!!!
 
-So basically the claw is made of two servo-controlled wheels pointing towards each other.
-When they spin towards each other, the sample is intaked; away from each other and the sample is spit out.
+THE SLIDE IS 984mm WHEN FULLY EXTENDED and EACH ENCODER COUNT = 0.3MM!
 
-I want __two (2)__ states for this claw: Intake & Outtake. Intake should have the servos at position (Top: 1.0, Bottom: -1.0) and the opposite for outtake. Use button A for the claw.
-The two servos are topIntake and bottomIntake. 
+CODE THE SLIDE SO IT CAN REACH THE BASKET! DO THE MATH URSELF!!!
 
 ***PULL REQUEST BY 4:40PM!!!***
 
