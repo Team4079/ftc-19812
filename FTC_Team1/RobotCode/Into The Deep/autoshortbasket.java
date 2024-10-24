@@ -1,4 +1,9 @@
 //Start, score on low basket, park.
+//OKAY ADD THE LINEARSLIDE + CLAW TO THE AUTONOMOUS FILE!!!!
+
+//THE SLIDE IS 984mm WHEN FULLY EXTENDED and EACH ENCODER COUNT = 0.3MM!
+
+//CODE THE SLIDE SO IT CAN REACH THE BASKET! DO THE MATH URSELF!!!
 
 package RobotCode;
 
@@ -29,6 +34,17 @@ public class MechanumAutonomous extends LinearOpMode {
     private DcMotorEx leftBackDrive = null;
     private DcMotorEx rightFrontDrive = null;
     private DcMotorEx rightBackDrive = null;
+    private DcMotor slideArm = null;
+    private Servo upperServo = null;
+    private Servo lowerServo = null;
+    private DcMotor clawState = null;
+    private double slideArmCD = 0.0;
+    private double clawCD = 0.0;
+
+    
+    slideArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    slideArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODERS);
+
 
 
     @Override
@@ -40,7 +56,10 @@ public class MechanumAutonomous extends LinearOpMode {
         rightFrontDrive = hardwareMap.get(DcMotorEx.class, "fRight");
         rightBackDrive = hardwareMap.get(DcMotorEx.class, "bRight");
 
-        slideMotor = hardwareMap.get(DcMotorEx.class,"armMotor");
+        slideMotor = hardwareMap.get(CRServo.class,"armMotor");
+        slideArm = hardwareMap.get(DcMotor.class, "slideMotor");
+        upperServo = hardwareMap.get(CRFServo.class, "topIntake");
+        lowerServo = hardwareMap.get(CRServo.class, "bottomIntake");
 
         leftFrontDrive.setDirection(DcMotorEx.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotorEx.Direction.REVERSE);
@@ -50,6 +69,9 @@ public class MechanumAutonomous extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         int count=0;
+
+         clawState = 1;
+
         waitForStart();
         runtime.reset();
 
