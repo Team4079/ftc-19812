@@ -92,8 +92,11 @@ public class MechanumAutonomous extends LinearOpMode {
             turnLeft(45);
             backEncoders(2440)
 
+        
         */
-       
+       //Low Basket is 654 cm (654cm/0.3 encoders = 2180 encoders)
+       upperServo.setPower(2180);
+       lowerServo.setPower(2180);
        }
     public void input(double leftFront, double rightFront, double leftBack, double rightBack)
     {
