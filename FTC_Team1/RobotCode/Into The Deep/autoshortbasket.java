@@ -35,8 +35,8 @@ public class MechanumAutonomous extends LinearOpMode {
     private DcMotorEx rightFrontDrive = null;
     private DcMotorEx rightBackDrive = null;
     private DcMotor slideArm = null;
-    private Servo upperServo = null;
-    private Servo lowerServo = null;
+    private CRServo upperServo = null;
+    private CRServo lowerServo = null;
     private DcMotor clawState = null;
     private double slideArmCD = 0.0;
     private double clawCD = 0.0;
