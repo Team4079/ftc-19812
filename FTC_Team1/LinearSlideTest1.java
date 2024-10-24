@@ -1,5 +1,3 @@
-package org.firstinspires.ftc.robotcontroller.external.samples;
-
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -50,7 +48,11 @@ public class LinearSlideTest1 extends LinearOpMode {
     private DcMotor rightFrontDrive = null;
     private DcMotor rightBackDrive = null;
     private DcMotor slideArm = null;
+    private CRServo upperServo = null;
+    private CRServo lowerServo = null;
+    private DcMotor clawState = null;
     private double slideArmCD = 0.0;
+    private double clawCD = 0.0;
     LinearSlideStates slideArmState = LinearSlideStates.HoldingTwo;
     private double motorPosition = 0.0;
 
@@ -65,12 +67,16 @@ public class LinearSlideTest1 extends LinearOpMode {
         rightFrontDrive = hardwareMap.get(DcMotor.class, "fRight");
         rightBackDrive = hardwareMap.get(DcMotor.class, "bRight");
         slideArm = hardwareMap.get(DcMotor.class, "slideMotor");
+        upperServo = hardwareMap.get(CRServo.class, "topIntake");
+        lowerServo = hardwareMap.get(CRServo.class, "bottomIntake");
 
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
+
+        clawState = 1;
 
         waitForStart();
         runtime.reset();
@@ -107,6 +113,25 @@ public class LinearSlideTest1 extends LinearOpMode {
             if(gamepad1.b && runtime.time()-slideArmCD >= 0.2){
                 slideArmState = slideArmState.nextState();
                 slideArmCD = runtime.time();
+            }
+
+            clawState = 1
+
+            if(gamepad1.a && runtime.time()-clawCD >= 0.2){
+                if(clawState == 1){
+                    clawState = 2;
+                    clawCD = runtime.time();
+                } else if(clawState >= 2) {
+                    clawState = 1;
+                    clawCD = runtime.time();
+                }
+            
+            if(clawState == 1){
+                upperServo.setPower(1.0);
+                lowerServo.setPower(-1.0);
+            } else if(clawState == 2){
+                lowerServo.setPower(1.0);
+                upperServo.setPower(-1.0);
             }
 
             checkAndSetSlideState(); // So this is jus thte switch states code but turned neater
