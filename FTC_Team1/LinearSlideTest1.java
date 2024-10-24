@@ -48,8 +48,8 @@ public class LinearSlideTest1 extends LinearOpMode {
     private DcMotor rightFrontDrive = null;
     private DcMotor rightBackDrive = null;
     private DcMotor slideArm = null;
-    private Servo upperServo = null;
-    private Servo lowerServo = null;
+    private CRServo upperServo = null;
+    private CRServo lowerServo = null;
     private DcMotor clawState = null;
     private double slideArmCD = 0.0;
     private double clawCD = 0.0;
@@ -67,8 +67,8 @@ public class LinearSlideTest1 extends LinearOpMode {
         rightFrontDrive = hardwareMap.get(DcMotor.class, "fRight");
         rightBackDrive = hardwareMap.get(DcMotor.class, "bRight");
         slideArm = hardwareMap.get(DcMotor.class, "slideMotor");
-        upperServo = hardwareMap.get(Servo.class, "topIntake");
-        lowerServo = hardwareMap.get(Servo.class, "bottomIntake");
+        upperServo = hardwareMap.get(CRServo.class, "topIntake");
+        lowerServo = hardwareMap.get(CRServo.class, "bottomIntake");
 
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -127,11 +127,11 @@ public class LinearSlideTest1 extends LinearOpMode {
                 }
             
             if(clawState == 1){
-                upperServo.setPosition(1.0);
-                lowerServo.setPosition(-1.0);
+                upperServo.setPower(1.0);
+                lowerServo.setPower(-1.0);
             } else if(clawState == 2){
-                lowerServo.setPosition(1.0);
-                upperServo.setPosition(-1.0);
+                lowerServo.setPower(1.0);
+                upperServo.setPower(-1.0);
             }
 
             checkAndSetSlideState(); // So this is jus thte switch states code but turned neater
