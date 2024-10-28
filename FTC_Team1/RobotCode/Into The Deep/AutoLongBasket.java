@@ -175,6 +175,15 @@ public class AutoLongBasket extends LinearOpMode {
         turnLeft(90);
         driveEncoders(610);
         // arm to score thing here
+        slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slideMotor.setTargetPosition(2505);
+        slideMotor.setVelocity(1500);
+        while (slideMotor.isBusy())
+        {
+
+        }
+        slideArm.setPower(0);
+
         turnLeft(180);
         driveEncoders(2440);
         turnLeft(90);
