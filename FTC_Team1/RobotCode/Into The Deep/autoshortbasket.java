@@ -1,8 +1,6 @@
 //Start, score on low basket, park.
 //OKAY ADD THE LINEARSLIDE + CLAW TO THE AUTONOMOUS FILE!!!!
-
 //THE SLIDE IS 984mm WHEN FULLY EXTENDED and EACH ENCODER COUNT = 0.3MM!
-
 //CODE THE SLIDE SO IT CAN REACH THE BASKET! DO THE MATH URSELF!!!
 
 package RobotCode;
@@ -35,7 +33,7 @@ public class MechanumAutonomous extends LinearOpMode {
     private DcMotorEx rightFrontDrive = null;
     private DcMotorEx rightBackDrive = null;
     private DcMotor slideArm = null;
-    private CRServo upperServo = null;
+    private CRServo upperLower = null;
     private CRServo lowerServo = null;
     private DcMotor clawState = null;
     private double slideArmCD = 0.0;
@@ -58,7 +56,7 @@ public class MechanumAutonomous extends LinearOpMode {
 
         slideMotor = hardwareMap.get(CRServo.class,"armMotor");
         slideArm = hardwareMap.get(DcMotor.class, "slideMotor");
-        upperServo = hardwareMap.get(CRFServo.class, "topIntake");
+        upperServo = hardwareMap.get(CRServo.class, "topIntake");
         lowerServo = hardwareMap.get(CRServo.class, "bottomIntake");
 
         leftFrontDrive.setDirection(DcMotorEx.Direction.REVERSE);
@@ -94,9 +92,17 @@ public class MechanumAutonomous extends LinearOpMode {
 
         
         */
-       //Low Basket is 654 cm (654cm/0.3 encoders = 2180 encoders)
-       upperServo.setPower(2180);
-       lowerServo.setPower(2180);
+        //High Basket is 1092 cm (1092cm/0.436 encoders = 2504.58 encoders)
+        slideArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slideArm.setTargetPosition(2505);
+        slideArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slideArm.setVelocity(1500);
+        while (slideArm.isBusy())
+        {
+        }
+        lowerServo.setPower(2505);
+
+        upperServo.setPower(2505);
        }
     public void input(double leftFront, double rightFront, double leftBack, double rightBack)
     {
