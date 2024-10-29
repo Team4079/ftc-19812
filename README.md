@@ -7,6 +7,7 @@ FTC's code storage space. Yeah.
 OKAY SO FOCUS ON THIS ONE FOR TODAY: CODE A PIVOT FOR THE INTAKE!!!!
 DcMOTOR, 3 STATES! UP (0.5) DOWN (-0.1) and HOLD (0.3)!!!!!
 NAMED "intakePivotMotor" in Driver's Hub!!!
+Use the Y & X buttons for the pivoting (Y=up) (x=down) (none=hold)
 
 ------------------------------
 OKAY ADD THE LINEARSLIDE + CLAW TO THE AUTONOMOUS FILE!!!!
