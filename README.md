@@ -4,11 +4,18 @@ FTC's code storage space. Yeah.
 # Today's Assignment
 [This is the link to the field map w/measurements](https://www.firstinspires.org/resource-library/ftc/game-and-season-info)  IT'S IN MANUAL #9
 
+OKAY SO FOCUS ON THIS ONE FOR TODAY: CODE A PIVOT FOR THE INTAKE!!!!
+DcMOTOR, 3 STATES! UP (0.5) DOWN (-0.1) and HOLD (0.3)!!!!!
+NAMED "intakePivotMotor" in Driver's Hub!!!
+
+------------------------------
 OKAY ADD THE LINEARSLIDE + CLAW TO THE AUTONOMOUS FILE!!!!
 
 THE SLIDE IS = EACH ENCODER COUNT = 0.436MM!
 
 CODE THE SLIDE SO IT CAN REACH THE BASKET! DO THE MATH URSELF!!!
+----------------------
+
 
 ***PULL REQUEST BY 4:40PM!!!***
 
