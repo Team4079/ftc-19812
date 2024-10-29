@@ -23,7 +23,7 @@ CODE THE SLIDE SO IT CAN REACH THE BASKET! DO THE MATH URSELF!!!
 
 
 # Member Computer #s
-Charles (Breathing01) - Personal <br>
+Charles (Breathing01) - Personal also i have 24 <br>
 Nav (lmaoNebula) - "20" <br>
 Daniel (chillydogs1) - 35 <br>
 Alex (1076351) - 22 <br>
