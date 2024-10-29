@@ -26,6 +26,10 @@ public class AutoLongBasket extends LinearOpMode {
     private DcMotorEx leftBackDrive = null;
     private DcMotorEx rightFrontDrive = null;
     private DcMotorEx rightBackDrive = null;
+    private DcMotor clawPivotMotor = null;
+    private CRServo upperServo = null;
+    private CRServo lowerServo = null;
+    private boolean intake = true;
     
     @Override
     
@@ -34,6 +38,10 @@ public class AutoLongBasket extends LinearOpMode {
         leftBackDrive  = hardwareMap.get(DcMotorEx.class, "bLeft");
         rightFrontDrive = hardwareMap.get(DcMotorEx.class, "fRight");
         rightBackDrive = hardwareMap.get(DcMotorEx.class, "bRight");
+        clawPivotMotor = hardwareMap.get(DcMotor.class, "intakePivotMotor");
+        upperServo = hardwareMap.get(CRServo.class, "topIntake");
+        lowerServo = hardwareMap.get(CRServo.class, "bottomIntake");
+        
 
         leftFrontDrive.setDirection(DcMotorEx.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotorEx.Direction.REVERSE);
@@ -45,8 +53,13 @@ public class AutoLongBasket extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        basket();
-
+        if(intake == true){
+            upperServo.setPower(-1.0);
+            lowerServo.setPower(1.0);
+        } else if(intake == false){
+            upperServo.setPower(1.0);
+            lowerServo.setPower(-1.0);
+        }
     }
 
 
@@ -176,14 +189,13 @@ public class AutoLongBasket extends LinearOpMode {
         driveEncoders(610);
         // arm to score thing here
         slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        slideMotor.setTargetPosition(2505);
+        slideMotor.setTargetPosition(2505); // arm up to basket
         slideMotor.setVelocity(1500);
-        while (slideMotor.isBusy())
-        {
-
+        while (slideMotor.isBusy()){
         }
         slideArm.setPower(0);
-
+        intake = false;
+        sleep(3000);
         turnLeft(180);
         driveEncoders(2440);
         turnLeft(90);
@@ -192,7 +204,7 @@ public class AutoLongBasket extends LinearOpMode {
         backEncoders(1220);
     }
     public void observation(){
-        driveEncoders(300wwwww);
+        driveEncoders(300);
         turnLeft(90);
         driveEncoders(1371.6);
         turnLeft(45);
