@@ -1,3 +1,4 @@
+
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -55,6 +56,9 @@ public class LinearSlideTest1 extends LinearOpMode {
     private double clawCD = 0.0;
     LinearSlideStates slideArmState = LinearSlideStates.HoldingTwo;
     private double motorPosition = 0.0;
+    private DcMotor intakePivotMotor = null;
+    private DcMotor intakeState = null;
+    private DcMotor intakeCD = null;
 
     slideArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     slideArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODERS);
@@ -132,6 +136,40 @@ public class LinearSlideTest1 extends LinearOpMode {
             } else if(clawState == 2){
                 lowerServo.setPower(1.0);
                 upperServo.setPower(-1.0);
+            }
+
+            if(gamepad1.y && runtime.time()-intakeCD >= 0.2){
+                intakeState = intakeState(1);
+                intakeCD = runtime.time();
+            }
+            if(gamepad1.x && runtime.time()-intakeCD >= 0.2){
+                intakeState = intakeState(2);
+                intakeCD = runtime.time();
+            }
+
+            intakeState = 0
+
+            if(gamepad1.y){
+                intakeState = 1;
+                intakeCD = runtime.time();
+                } 
+
+            if (gamepad1.x) {
+                intakeState = 2;
+                intakeCD = runtime.time();
+            }
+            if (!gamepad1.y && !gamepad1.x) {
+                intakeState = 0
+                intakeCD = runtime.time();
+            }
+                
+
+            if(intakeState == 0){
+                intakePivotMotor.setPower(0.3);
+            } else if (intakeState == 1) {
+                intakePivotMotor.setPower(0.5);
+            } else if (intakeState == 2) {
+                intakePivotMotor.setPower(-0.3);
             }
 
             checkAndSetSlideState(); // So this is jus thte switch states code but turned neater
