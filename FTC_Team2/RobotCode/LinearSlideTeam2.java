@@ -54,9 +54,9 @@ public class LinearSlideTest1 extends LinearOpMode {
     LinearSlideStates slideArmState = LinearSlideStates.HoldingTwo;
     private CRServo topclaw = null;
     private CRServo bottomclaw = null;
-    private boolean in = false
-    private double clawCD = 0.0
-    
+    private boolean in = false;
+    private double clawCD = 0.0;
+    private double motorWrist = 0.0;
 
     slideArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     slideArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODERS);
@@ -69,6 +69,7 @@ public class LinearSlideTest1 extends LinearOpMode {
         rightFrontDrive = hardwareMap.get(DcMotor.class, "fRight");
         rightBackDrive = hardwareMap.get(DcMotor.class, "bRight");
         slideArm = hardwareMap.get(DcMotor.class, "slideMotor");
+        
 
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
