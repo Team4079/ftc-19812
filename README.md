@@ -9,14 +9,9 @@ DcMOTOR, 3 STATES! UP (0.5) DOWN (-0.1) and HOLD (0.3)!!!!!
 NAMED "intakePivotMotor" in Driver's Hub!!!
 Use the Y & X buttons for the pivoting (Y=up) (x=down) (none=hold)
 
-------------------------------
-OKAY ADD THE LINEARSLIDE + CLAW TO THE AUTONOMOUS FILE!!!!
+OKAY ADD THE LINEARSLIDE + CLAW + **PIVOT** TO THE AUTONOMOUS FILE!!!!
 
 THE SLIDE IS = EACH ENCODER COUNT = 0.436MM!
-
-CODE THE SLIDE SO IT CAN REACH THE BASKET! DO THE MATH URSELF!!!
-----------------------
-
 
 ***PULL REQUEST BY 4:40PM!!!***
 
