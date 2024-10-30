@@ -1,7 +1,3 @@
-//Start, score on low basket, park.
-//OKAY ADD THE LINEARSLIDE + CLAW TO THE AUTONOMOUS FILE!!!!
-//THE SLIDE IS 984mm WHEN FULLY EXTENDED and EACH ENCODER COUNT = 0.3MM!
-//CODE THE SLIDE SO IT CAN REACH THE BASKET! DO THE MATH URSELF!!!
 
 package RobotCode;
 
@@ -38,6 +34,9 @@ public class MechanumAutonomous extends LinearOpMode {
     private DcMotor clawState = null;
     private double slideArmCD = 0.0;
     private double clawCD = 0.0;
+    private DcMotor intakePivotMotor = null;
+    private DcMotor intakeState = null;
+    private DcMotor intakeCD = null;
 
     
     slideArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -59,6 +58,8 @@ public class MechanumAutonomous extends LinearOpMode {
         upperServo = hardwareMap.get(CRServo.class, "topIntake");
         lowerServo = hardwareMap.get(CRServo.class, "bottomIntake");
 
+
+
         leftFrontDrive.setDirection(DcMotorEx.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotorEx.Direction.REVERSE);
         rightFrontDrive.setDirection(DcMotorEx.Direction.REVERSE);
@@ -76,12 +77,6 @@ public class MechanumAutonomous extends LinearOpMode {
          // run until the end of the match (driver presses STOP)
         while (opModeIsActive()&&count==0) {
         /*
-        Observation Station
-            driveEncoders(2440);
-            turnLeft(45);
-            armShoot();
-            turnRight(45);
-            backEncoders(2440);
 
         Net
             driveEncoders(2440);
@@ -89,6 +84,7 @@ public class MechanumAutonomous extends LinearOpMode {
             armShoot();
             turnLeft(45);
             backEncoders(2440)
+
 
         
         */
@@ -101,8 +97,21 @@ public class MechanumAutonomous extends LinearOpMode {
         {
         }
         lowerServo.setPower(2505);
-
         upperServo.setPower(2505);
+
+        intakeState = 0
+
+
+        if(intakeState == 0){
+            intakePivotMotor.setPower(0.3);
+        } else if (intakeState == 1) {
+            intakePivotMotor.setPower(0.5);
+        } else if (intakeState == 2) {
+            intakePivotMotor.setPower(-0.3);
+        }
+
+
+
        }
     public void input(double leftFront, double rightFront, double leftBack, double rightBack)
     {
@@ -223,5 +232,30 @@ public class MechanumAutonomous extends LinearOpMode {
     public void stop(double time)
     {
         input(0, 0, 0, 0);
+    }
+    public void observation(){
+        driveEncoders(2440);
+        turnLeft(45);
+
+        turnRight(45);
+        backEncoders(2440);    
+    }
+    public void basket() {
+        turnLeft(90);
+        driveEncoders(610);
+        // arm to score thing here
+        slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); //idk sam said to put it
+        slideMotor.setTargetPosition(2505); // arm up to basket
+        slideMotor.setVelocity(1500); //idk sam said to put it
+        while (slideMotor.isBusy()){
+        }
+        slideArm.setPower(0);
+        intakePivotMotor.setPower(0.5);
+        while(intakePivotMotor.isBusy()){
+        }
+        upperServo.setPower(1.0);
+        lowerServo.setPower(-1.0);
+        sleep(3000);
+        intakePivotMotor.setPower(0.3);
     }
 }
