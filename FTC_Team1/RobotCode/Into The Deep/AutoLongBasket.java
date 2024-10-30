@@ -29,7 +29,6 @@ public class AutoLongBasket extends LinearOpMode {
     private DcMotor clawPivotMotor = null;
     private CRServo upperServo = null;
     private CRServo lowerServo = null;
-    private boolean intake = true;
     
     @Override
     
@@ -53,16 +52,10 @@ public class AutoLongBasket extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        if(intake == true){
-            upperServo.setPower(-1.0);
-            lowerServo.setPower(1.0);
-        } else if(intake == false){
-            upperServo.setPower(1.0);
-            lowerServo.setPower(-1.0);
-        }
+
     }
 
-
+// vvvvvvvvvvvvvvvvvvvv THIS IS WHERE THE FUNCTIONS ARE vvvvvvvvvvvvvvvvvvvv
 
     public void input(double leftFront, double rightFront, double leftBack, double rightBack)
     {
@@ -188,14 +181,20 @@ public class AutoLongBasket extends LinearOpMode {
         turnLeft(90);
         driveEncoders(610);
         // arm to score thing here
-        slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); //idk sam said to put it
         slideMotor.setTargetPosition(2505); // arm up to basket
-        slideMotor.setVelocity(1500);
+        slideMotor.setVelocity(1500); //idk sam said to put it
         while (slideMotor.isBusy()){
         }
         slideArm.setPower(0);
-        intake = false;
+        intakePivotMotor.setPower(0.5);
+        while(intakePivotMotor.isBusy()){
+        }
+        upperServo.setPower(1.0);
+        lowerServo.setPower(-1.0);
         sleep(3000);
+        intakePivotMotor.setPower(0.3);
+        //this is where the scoring thing stops
         turnLeft(180);
         driveEncoders(2440);
         turnLeft(90);
