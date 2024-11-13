@@ -4,18 +4,15 @@ FTC's code storage space. Yeah.
 # Today's Assignment
 [This is the link to the field map w/measurements](https://www.firstinspires.org/resource-library/ftc/game-and-season-info)  IT'S IN MANUAL #9
 
-OKAY SO FOCUS ON THIS ONE FOR TODAY: CODE A PIVOT FOR THE INTAKE!!!!
-DcMOTOR, 3 STATES! UP (0.5) DOWN (-0.1) and HOLD (0.3)!!!!!
-NAMED "intakePivotMotor" in Driver's Hub!!!
-Use the Y & X buttons for the pivoting (Y=up) (x=down) (none=hold)
+Autonomous file: Team 1 = BasketToPark1 | Team 2 = BasketToPark2
 
-OKAY ADD THE LINEARSLIDE + CLAW + **PIVOT** TO THE AUTONOMOUS FILE!!!!
+Simply score in the nearest high basket with a pre-loaded specimen and then park. Make sure to make two functions for each position.
 
-THE SLIDE IS = EACH ENCODER COUNT = 0.436MM!
+Each tile is worth 610mm 
+
+THE SLIDE IS = EACH ENCODER COUNT = 0.436MM! The Robot is 420x420 in dimensions, keep that in mind.
 
 ***PULL REQUEST BY 4:40PM!!!***
-
-
 
 # Member Computer #s
 Charles (Breathing01) - Personal also i have 24 <br>
