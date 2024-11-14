@@ -180,6 +180,7 @@ public class AutoLongBasket extends LinearOpMode {
     public void basket(){
         turnLeft(90);
         driveEncoders(610);
+        rightEncoders(200);
         // arm to score thing here
         slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); //idk sam said to put it
         slideMotor.setTargetPosition(2505); // arm up to basket
@@ -191,6 +192,7 @@ public class AutoLongBasket extends LinearOpMode {
         sleep(3000);
         intakePivotMotor.setPower(0.3);
         //this is where the scoring thing stops
+        leftEncoders(200);
 
     }
     public void observation(){
