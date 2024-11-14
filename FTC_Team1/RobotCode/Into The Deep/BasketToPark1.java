@@ -184,11 +184,23 @@ public class AutoLongBasket extends LinearOpMode {
         slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); //idk sam said to put it
         slideMotor.setTargetPosition(2505); // arm up to basket
         slideMotor.setVelocity(1500); //idk sam said to put it
-        while (slideMotor.isBusy()){
+        while (slideMotor.isBusy() && intakePivotMotor.isBusy()){
         }
-        slideArm.setPower(0);
-        intakePivotMotor.setPower(0.5);
-        while(intakePivotMotor.isBusy()){
+        upperServo.setPower(1.0);
+        lowerServo.setPower(-1.0);
+        sleep(3000);
+        intakePivotMotor.setPower(0.3);
+        //this is where the scoring thing stops
+
+    }
+    public void observation(){
+        turnLeft(90);
+        driveEncoders(2440);
+        // arm to score thing here
+        slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); //idk sam said to put it
+        slideMotor.setTargetPosition(2505); // arm up to basket
+        slideMotor.setVelocity(1500); //idk sam said to put it
+        while (slideMotor.isBusy() && intakePivotMotor.isBusy()){
         }
         upperServo.setPower(1.0);
         lowerServo.setPower(-1.0);
