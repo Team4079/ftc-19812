@@ -180,6 +180,8 @@ public class AutoLongBasket extends LinearOpMode {
     public void basket(){
         turnLeft(90);
         driveEncoders(2135);
+        rightEncoders(305);
+        turnLeft(45);
         // arm to score thing here
         slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); //idk sam said to put it
         slideMotor.setTargetPosition(2505); // arm up to basket
@@ -195,11 +197,15 @@ public class AutoLongBasket extends LinearOpMode {
         sleep(3000);
         intakePivotMotor.setPower(0.3);
         //this is where the scoring thing stops
+        turnRight(45);
+        leftEncoders(305);
         backEncoders(2135);
     }
     public void observation(){
         turnLeft(90);
+        rightEncoders(305);
         driveEncoders(305);
+        turnLeft(45);
         // arm to score thing here
         slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); //idk sam said to put it
         slideMotor.setTargetPosition(2505); // arm up to basket
@@ -215,7 +221,10 @@ public class AutoLongBasket extends LinearOpMode {
         sleep(3000);
         intakePivotMotor.setPower(0.3);
         //this is where the scoring thing stops
+        turnRight(45);
+        leftEncoders(305);
         backEncoders(2135);
      }
 }
 //i hate you sehwan sam minh jang
+//i also hate you sehwan sam minh jang -- justin :)
